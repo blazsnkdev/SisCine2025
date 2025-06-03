@@ -17,15 +17,62 @@ namespace SistemaCineMVC.Controllers
             _context = context;
         }
 
-        [Breadcrumb("Entrada", FromController =typeof(HomeController), FromAction ="Index")]
+        [Breadcrumb("Entrada", FromController = typeof(HomeController), FromAction = "Index")]
         [Route("entrada")]
-        public IActionResult Index()
+        public IActionResult Index(int? idFuncion, int? idAsiento, string? estado)
         {
-            var entradas = _entradaRepository.GetEntradas();
+            // ** SIEMPRE POPULAR LOS VIEWBAGS PARA LOS DROPDOWNS **
+            // Esto asegura que los SelectList siempre tengan datos, incluso si no se está filtrando por ellos.
+            ViewData["IdFuncion"] = new SelectList(_context.Funcions, "IdFuncion", "IdFuncion");
+            ViewData["IdAsiento"] = new SelectList(_context.Asientos, "IdAsiento", "IdAsiento"); // Asumo que "Fila" es más descriptivo que "IdAsiento" para mostrar.
 
+            List<Entradum> entradas;
+            string titulo = "Lista de Entradas"; // Título por defecto
+
+            if (idFuncion.HasValue)
+            {
+                entradas = _entradaRepository.ListarPorFuncion(idFuncion);
+                titulo = $"Entradas de la Función {idFuncion}";
+            }
+            else if (idAsiento.HasValue)
+            {
+                entradas = _entradaRepository.ListarPorAsiento(idAsiento);
+                titulo = $"Entradas del Asiento {idAsiento}";
+            }
+            else if (!string.IsNullOrEmpty(estado))
+            {
+                entradas = _entradaRepository.ListarPorEstado(estado);
+                titulo = $"Entradas con estado {estado}";
+            }
+            else
+            {
+                entradas = _entradaRepository.GetEntradas(); // Asumo que tienes un método para obtener todas las entradas
+            }
+
+            ViewData["Titulo"] = titulo;
             return View(entradas);
         }
-        [Breadcrumb("Detalle Funcion" , FromAction ="Index")]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Breadcrumb("Función" , FromAction ="Index")]
         [Route("entrada/funcion/{id:int}")]
         public IActionResult DetalleFuncion(int id)
         {
@@ -33,7 +80,7 @@ namespace SistemaCineMVC.Controllers
             var funcionSelec = _entradaRepository.VerDetalleFuncion(id);
             return View(funcionSelec);
         }
-        [Breadcrumb("Detalle Asiento", FromAction = "Index")]
+        [Breadcrumb("Asiento", FromAction = "Index")]
         [Route("entrada/asiento/{id:int}")]
         public IActionResult DetalleAsiento(int id)
         {
@@ -41,7 +88,7 @@ namespace SistemaCineMVC.Controllers
             return View(asientoSelec);
         }
 
-        [Breadcrumb("Detalle Entrada", FromAction = "Index")]
+        [Breadcrumb("Detalle", FromAction = "Index")]
         public async Task<IActionResult> DetalleEntrada(int id)
         {
             var entrada = await _entradaRepository.VerDetalleEntrada(id);

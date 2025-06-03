@@ -4,11 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">@ViewData["Titulo"]</h1>
 
-<p>
-    <a href="entrada/formulario" class="btn btn-primary">Crear Entrada</a>
-</p>
+<div class="d-flex align-items-center gap-2">
+    <a href="entrada/formulario" class="btn btn-primary">Agregar</a>
+    <a asp-controller="Entrada" asp-action="Index" class="btn btn-outline-success">Ver Todos</a>
+    <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
+        <select name="idFuncion" class="form-control" asp-items="ViewBag.IdFuncion">
+            <option value="">-- Seleccionar Función --</option>
+        </select>
+        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+    </form>
+
+    <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
+        <select name="idAsiento" class="form-control" asp-items="ViewBag.IdAsiento">
+            <option value="">-- Seleccionar Asiento --</option>
+        </select>
+        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+    </form>
+
+
+</div>
+
+<br />
+
 <table class="table">
     <thead class="table table-dark">
         <tr>
@@ -37,10 +56,10 @@
                 @Html.DisplayFor(modelItem => item.IdEntrada)
             </td>
             <td>
-                <a asp-action="DetalleFuncion" asp-route-id="@item.IdFuncion" class="btn btn-success">Ver</a>
+                <a asp-action="DetalleFuncion" asp-route-id="@item.IdFuncion" class="btn btn-outline-success">Ver</a>
             </td>
             <td>
-                    <a asp-action="DetalleAsiento" asp-route-id="@item.IdAsiento" class="btn btn-success">Ver</a>
+                    <a asp-action="DetalleAsiento" asp-route-id="@item.IdAsiento" class="btn btn-outline-success">Ver</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Precio)
@@ -50,7 +69,7 @@
             </td>
             <td>
                     <a asp-controller="Entrada" asp-action="Editar" class="btn btn-warning" asp-route-id="@item.IdEntrada">Actualizar</a> |
-                <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-success" asp-route-id="@item.IdEntrada">Ver Detalle</a>
+                <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-success" asp-route-id="@item.IdEntrada">Detalle</a>
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>

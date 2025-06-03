@@ -26,6 +26,16 @@ namespace SistemaCineMVC.Controllers
             return View(lista);
         }
 
+
+
+
+
+
+
+
+
+
+
         [Breadcrumb("Detalle", FromAction = "Lista")]
         [Route("cliente/{id}")]
         public IActionResult Detalle(int id)

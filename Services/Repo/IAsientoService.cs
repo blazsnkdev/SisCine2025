@@ -6,6 +6,13 @@ namespace SistemaCineMVC.Services.Repo
     {
         List<Asiento> ListarAsiento();
         List<Asiento> ListarPorSala(int? idSala);
+
+
+
+
+
+
+
         Asiento ObtenerAsiento(int id);
         void AgregarAsiento(Asiento sala);
         void ActualizarAsiento(Asiento sala);

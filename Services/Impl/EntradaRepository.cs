@@ -41,10 +41,11 @@ namespace SistemaCineMVC.Services.Impl
             return list;
         }
 
-        public List<Entradum> ListarPorAsiento(int idAsiento)
+        public List<Entradum> ListarPorAsiento(int? idAsiento)
         {
             var list = _context.Entrada
                 .Where(e => e.IdAsiento == idAsiento)
+                .Include(e => e.IdAsientoNavigation)
                 .ToList();
             return list;
         }
@@ -57,14 +58,27 @@ namespace SistemaCineMVC.Services.Impl
             return list;
         }
 
-        public List<Entradum> ListarPorFuncion(int idFuncion)
+        public List<Entradum> ListarPorFuncion(int? idFuncion)
         {
             var list = _context.Entrada
                 .Where(f => f.IdFuncion == idFuncion)
+                .Include(fn=>fn.IdFuncionNavigation)
                 .ToList();
 
             return list;
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void MarcarEntradaVendida(Entradum entrada)
         {

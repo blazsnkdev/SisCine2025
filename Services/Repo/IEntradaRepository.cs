@@ -5,9 +5,13 @@ namespace SistemaCineMVC.Services.Repo
     public interface IEntradaRepository
     {
         List<Entradum> GetEntradas();
-        List<Entradum> ListarPorFuncion(int idFuncion);
-        List<Entradum> ListarPorAsiento(int idAsiento);
+        List<Entradum> ListarPorFuncion(int? idFuncion);
+        List<Entradum> ListarPorAsiento(int? idAsiento);
         List<Entradum> ListarPorEstado(string estado);
+
+
+
+
 
         Entradum? GetEntradaById(int id);
         void MarcarEntradaVendida(Entradum entrada);

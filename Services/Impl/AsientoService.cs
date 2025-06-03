@@ -48,7 +48,8 @@ namespace SistemaCineMVC.Services.Impl
         public List<Asiento> ListarPorSala(int? idSala)
         {
             
-            var list = _context.Asientos.Where(s => s.IdSala == idSala)
+            var list = _context.Asientos
+                .Where(s => s.IdSala == idSala)
                 .Include(sn =>sn.IdSalaNavigation)
                 .ToList();
 
