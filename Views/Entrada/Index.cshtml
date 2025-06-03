@@ -23,6 +23,17 @@
         <button type="submit" class="btn btn-outline-info">Filtrar</button>
     </form>
 
+    <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
+        <select name="estado" class="form-control">
+            <option value="">-- Seleccionar Estado --</option>
+            <option value="Disponible"> Disponible </option>
+            <option value="Vendido"> Vendido </option>
+            <option value="Cancelado"> Cancelado </option>
+
+        </select>
+        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+    </form>
+
 
 </div>
 
