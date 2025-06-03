@@ -10,7 +10,7 @@ namespace SistemaCineMVC.Services.Repo
         void Agregar(Funcion funcion);
         void Actualizar(Funcion funcion);
         void Eliminar(int id);
-        //List<Funcion> FuncionesParaPelicula(string pelicula);
+        
         Funcion ObtenerFuncion(int id);
     }
 }

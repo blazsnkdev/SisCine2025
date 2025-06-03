@@ -13,6 +13,7 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IPeliculaService, PeliculaService>();
 builder.Services.AddScoped<ISalaService, SalaService>();
 builder.Services.AddScoped<IFuncionService, FuncionService>();
+builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("cn1");
 builder.Services.AddDbContext<BdCine2025Context>(options =>

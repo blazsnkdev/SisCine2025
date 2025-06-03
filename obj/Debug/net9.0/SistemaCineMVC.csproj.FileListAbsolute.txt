@@ -340,3 +340,4 @@ C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core dev
 C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC\bin\Debug\net9.0\SmartBreadcrumbs.dll
 C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC\obj\Debug\net9.0\SistemaCineMVC.MvcApplicationPartsAssemblyInfo.cs
+C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC\obj\Debug\net9.0\SistemaCineMVC.sourcelink.json
