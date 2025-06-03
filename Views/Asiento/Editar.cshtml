@@ -1,0 +1,63 @@
+﻿@model SistemaCineMVC.Models.Asiento
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Asiento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Asiento" asp-action="Actualizar" asp-route-id="@Model.IdAsiento" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="IdAsiento" class="control-label"></label> *@
+            @*     <input asp-for="IdAsiento" class="form-control" /> *@
+            @*     <span asp-validation-for="IdAsiento" class="text-danger"></span> *@
+            @* </div> *@
+            <div class="form-group">
+                <label asp-for="IdSala" class="control-label"></label>
+                <select asp-for="IdSala" class="form-control" asp-items="ViewBag.IdSala"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fila" class="control-label"></label>
+                <input asp-for="Fila" class="form-control" />
+                <span asp-validation-for="Fila" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" /> |
+                <a asp-controller="Asiento" asp-action="Lista" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let NoEncontrado = "@TempData["NoEncontrado"]";
+
+            if (NoEncontrado) {
+                Toastify({
+                    text: NoEncontrado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+
+
+    </script>
+}

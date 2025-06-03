@@ -1,0 +1,34 @@
+﻿@model SistemaCineMVC.Models.Funcion
+
+
+
+<h3>¿Esta seguro de eliminar esta función?</h3>
+<div>
+    <h4>@ViewData["Titulo"]</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdFuncion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdFuncion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdPelicula)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdPelicula)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSala)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdSala)
+        </dd>
+    </dl>
+    
+    <form asp-controller="Funcion" asp-action="Eliminar" asp-route-id="@Model.IdFuncion" method="post">
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-controller="Funcion" asp-action="Lista" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

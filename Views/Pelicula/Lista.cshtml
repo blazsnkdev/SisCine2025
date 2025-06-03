@@ -1,0 +1,210 @@
+﻿@model IEnumerable<SistemaCineMVC.Models.Pelicula>
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+
+<div class="d-flex gap-3 align-items-center">
+    <a href="pelicula/formulario" class="btn btn-primary">Agregar</a>
+
+    <div class="mb-0">
+        @* <label>Filtrar Por Título:</label> *@
+        <input type="text" id="filtroTitulo" class="form-control" placeholder="Buscar por Titulo"/>
+    </div>
+
+    <div class="mb-0">
+        @* <label>Filtrar Por Género:</label> *@
+        <input type="text" id="filtroGenero" class="form-control" placeholder="Buscar por Genero"/>
+    </div>
+</div>
+
+<br />
+
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Genero
+            </th>
+            <th>
+                Duración
+            </th>
+            <th>
+                Clasificación
+            </th>
+            <th>
+                Sinopsis
+            </th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr class="fila-pelicula">
+            <td class="idpelicula">
+                @Html.DisplayFor(modelItem => item.IdPelicula)
+            </td>
+            <td class="titulo">
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td class="genero">
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td class="duracion">
+                @Html.DisplayFor(modelItem => item.Duracion)
+            </td>
+            <td class="clasificacion">
+                @Html.DisplayFor(modelItem => item.Clasificacion)
+            </td>
+            <td class="sinopsis">
+                @Html.DisplayFor(modelItem => item.Sinopsis)
+            </td>
+            <td>
+                    <button class="btn btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle"
+                            data-titulo="@item.Titulo"
+                            data-genero="@item.Genero"
+                            data-duracion="@item.Duracion"
+                            data-clasificacion="@item.Clasificacion"
+                            data-sinopsis="@item.Sinopsis">
+                        Ver
+                    </button> |
+                    <a asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.IdPelicula" class="btn btn-primary">Actualizar</a> |
+                    <a asp-controller="Pelicula" asp-action="Confirmacion" asp-route-id="@item.IdPelicula" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="modal fade" id="modalDetalle" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de la Pelicula</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Titulo: <strong><span id="m-titulo"></span></strong></p>
+                <p>Genero: <strong><span id="m-genero"></span></strong></p>
+                <p>Duración: <strong><span id="m-duracion"></span></strong></p>
+                <p>Clasificación: <strong><span id="m-clasificacion"></span></strong></p>
+                <p>Sinopsís: <strong><span id="m-sinopsis"></span></strong></p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let PeliculaNoEncontrada = "@TempData["PeliculaNoEncontrada"]";
+
+            if (PeliculaNoEncontrada) {
+                Toastify({
+                    text: PeliculaNoEncontrada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+            let PeliculaEliminada = "@TempData["PeliculaEliminada"]";
+
+            if (PeliculaEliminada) {
+                Toastify({
+                    text: PeliculaEliminada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let PeliculaActualizada = "@TempData["PeliculaActualizada"]";
+
+            if (PeliculaActualizada) {
+                Toastify({
+                    text: PeliculaActualizada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let PeliculaRegistrada = "@TempData["PeliculaRegistrada"]";
+
+            if (PeliculaRegistrada) {
+                Toastify({
+                    text: PeliculaRegistrada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+            $('#modalDetalle').on('show.bs.modal', function (e) {
+                const button = $(e.relatedTarget);
+                $('#m-titulo').text(button.data('titulo'));
+                $('#m-genero').text(button.data('genero'));
+                $('#m-duracion').text(button.data('duracion') + " horas.");
+                $('#m-clasificacion').text(button.data('clasificacion'));
+                $('#m-sinopsis').text(button.data('sinopsis'));
+
+                if (button.data('duracion') > 5) {
+                    Toastify({
+                        text: "La pelicula tiene una duración maxima de 2 horas",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#ffc107"
+                    }).showToast();
+                }
+            });
+
+            $('#filtroGenero').on('keyup', function () {
+                let valorFiltro = $(this).val().toLowerCase();
+                $(".fila-pelicula").filter(function () {
+                    $(this).toggle(
+                        $(this).find(".genero").text().toLowerCase().includes(valorFiltro)
+                    );
+                });
+            });
+
+            $('#filtroTitulo').on('keyup', function () {
+                let valorFiltro = $(this).val().toLowerCase();
+                $(".fila-pelicula").filter(function () {
+                    $(this).toggle(
+                        $(this).find(".titulo").text().toLowerCase().includes(valorFiltro)
+                    );
+                });
+            });
+
+
+
+
+
+
+
+
+            });
+
+
+    </script>
+}

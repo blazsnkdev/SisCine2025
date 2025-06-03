@@ -1,0 +1,49 @@
+﻿@model SistemaCineMVC.Models.Funcion
+
+<h1>@ViewData["Titulo"]</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Funcion" asp-action="Registrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="IdFuncion" class="control-label"></label> *@
+            @*     <input asp-for="IdFuncion" class="form-control" /> *@
+            @*     <span asp-validation-for="IdFuncion" class="text-danger"></span> *@
+            @* </div> *@
+            <div class="form-group">
+                <label asp-for="IdPelicula" class="control-label"></label>
+                <select asp-for="IdPelicula" class="form-control" asp-items="ViewBag.IdPelicula"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IdSala" class="control-label"></label>
+                <select asp-for="IdSala" class="form-control" asp-items="ViewBag.IdSala"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" type="date" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HoraInicio" class="control-label"></label>
+                <input asp-for="HoraInicio" class="form-control" type="time" />
+                <span asp-validation-for="HoraInicio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HoraFin" class="control-label"></label>
+                <input asp-for="HoraFin" class="form-control" type="time" />
+                <span asp-validation-for="HoraFin" class="text-danger"></span>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a asp-controller="Funcion" asp-action="Lista" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>

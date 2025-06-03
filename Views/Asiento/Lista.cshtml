@@ -1,0 +1,128 @@
+﻿@model IEnumerable<SistemaCineMVC.Models.Asiento>
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+
+<div class="d-flex align-items-center gap-2">
+    <a href="asiento/formulario" class="btn btn-primary">Agregar</a>
+    <a asp-controller="Asiento" asp-action="Lista" class="btn btn-outline-success">Ver Todos</a>
+    <form asp-controller="Asiento" asp-action="Lista" method="get" class="d-flex align-items-center gap-2 mb-0">
+        <select name="idSala" class="form-control" asp-items="ViewBag.IdSala">
+            <option value="">-- Seleccionar Sala --</option>
+        </select>
+        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+    </form>
+</div>
+
+
+
+
+
+<br />
+
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAsiento)
+            </th>
+            <th>
+                Nombre Sala
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fila)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAsiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSalaNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fila)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+               <a asp-controller="Asiento" asp-action="Editar" asp-route-id="@item.IdAsiento" class="btn btn-warning">Editar</a>
+                    <a asp-controller="Asiento" asp-action="Confirmacion" asp-route-id="@item.IdAsiento" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+            
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let DetalleNoEncontrado = "@TempData["DetalleNoEncontrado"]";
+
+            if (DetalleNoEncontrado) {
+                Toastify({
+                    text: DetalleNoEncontrado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+            let ExitoRegistro = "@TempData["ExitoRegistro"]";
+
+            if (ExitoRegistro) {
+                Toastify({
+                    text: ExitoRegistro,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+
+            let ExitoActualiado = "@TempData["ExitoActualiado"]";
+
+            if (ExitoActualiado) {
+                Toastify({
+                    text: ExitoActualiado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let ExitoEliminado = "@TempData["ExitoEliminado"]";
+
+            if (ExitoEliminado) {
+                Toastify({
+                    text: ExitoEliminado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+
+
+            });
+
+
+    </script>
+}

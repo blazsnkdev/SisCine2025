@@ -1,0 +1,139 @@
+﻿@model IEnumerable<SistemaCineMVC.Models.Cliente>
+
+@* @if (ViewData["Mensaje"] != null) *@
+@* { *@
+@*     <div class="alert alert-success">@ViewData["Mensaje"]</div> *@
+@* } *@
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+
+
+<div class="d-flex gap-3 align-items-center">
+    <a href="cliente/formulario" class="btn btn-primary">Agregar</a>
+
+    <div class="mb-0">
+        @* <label>Filtrar Por Título:</label> *@
+        <input type="text" id="filtroNombre" class="form-control" placeholder="Buscar por Nombre" />
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+               Nombre
+            </th>
+            <th>
+                Apellido
+            </th>
+            <th>
+                Correco Electronico
+            </th>
+            <th>
+                Telefono
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="fila-cliente">
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCliente)
+            </td>
+            <td class="nombre">
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                    <a asp-action="Detalle" asp-route-id="@item.IdCliente" class="btn btn-primary">Detalle</a>
+
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let DetalleNoEncontrado = "@TempData["DetalleNoEncontrado"]";
+
+            if (DetalleNoEncontrado) {
+                Toastify({
+                    text: DetalleNoEncontrado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+            let ClienteRegistrado = "@TempData["ClienteRegistrado"]";
+
+            if (ClienteRegistrado) {
+                Toastify({
+                    text: ClienteRegistrado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let ClienteActualizado = "@TempData["ClienteActualizado"]";
+
+            if (ClienteActualizado) {
+                Toastify({
+                    text: ClienteActualizado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let ClienteEliminado = "@TempData["ClienteEliminado"]";
+
+            if (ClienteEliminado) {
+                Toastify({
+                    text: ClienteEliminado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+             $('#filtroNombre').on('keyup', function () {
+                let valorFiltro = $(this).val().toLowerCase();
+                $(".fila-cliente").filter(function () {
+                    $(this).toggle(
+                        $(this).find(".nombre").text().toLowerCase().includes(valorFiltro)
+                    );
+                });
+            });
+
+
+            });
+
+        
+    </script>
+}
+            

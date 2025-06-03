@@ -1,0 +1,137 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SistemaCineMVC
+build_property.RootNamespace = SistemaCineMVC
+build_property.ProjectDir = C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\blas\cibertec\2025\desarrollador .net\cursos\visual studio 2022 .net core developer\proyectos\Capitulo2\SistemaCineMVC
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Asiento/Confirmacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b1xDb25maXJtYWNpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Asiento/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b1xFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Asiento/Formulario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b1xGb3JtdWxhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Asiento/Lista.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZW50b1xMaXN0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Cliente/Detalle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxEZXRhbGxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Cliente/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Cliente/Lista.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxMaXN0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Cliente/Registrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxSZWdpc3RyYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Funcion/Confirmacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvblxDb25maXJtYWNpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Funcion/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvblxFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Funcion/Formulario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvblxGb3JtdWxhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Funcion/Lista.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnVuY2lvblxMaXN0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Pelicula/Confirmacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFcQ29uZmlybWFjaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Pelicula/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Pelicula/Formulario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFcRm9ybXVsYXJpby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Pelicula/Lista.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVsaWN1bGFcTGlzdGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Sala/Confirmacion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYVxDb25maXJtYWNpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Sala/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYVxFZGl0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Sala/Formulario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYVxGb3JtdWxhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Sala/Lista.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYVxMaXN0YS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blas/cibertec/2025/desarrollador .net/cursos/visual studio 2022 .net core developer/proyectos/Capitulo2/SistemaCineMVC/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-r965ugzkm7

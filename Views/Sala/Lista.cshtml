@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SistemaCineMVC.Models.Sala>
+
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+
+<div class="d-flex gap-3 align-items-center">
+    <a href="sala/formulario" class="btn btn-primary">Agregar</a>
+
+</div>
+
+<br />
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSala)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="fila-sala">
+            <td class="idSala">
+                @Html.DisplayFor(modelItem => item.IdSala)
+            </td>
+            <td class="nombre">
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td class="capacidad">
+                @Html.DisplayFor(modelItem => item.Capacidad)
+            </td>
+            <td>
+               <a asp-controller="Sala" asp-action="Editar" asp-route-id="@item.IdSala" class="btn btn-primary">Actualizar</a> |
+                    <a asp-controller="Sala" asp-action="Eliminar" asp-route-id="@item.IdSala" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+
+    <script>
+        $(function()
+        {
+
+            let SalaNoEncontrada = "@TempData["SalaNoEncontrada"]";
+
+            if (SalaNoEncontrada) {
+                Toastify({
+                    text: SalaNoEncontrada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+            let SalaEliminada = "@TempData["SalaEliminada"]";
+
+            if (SalaEliminada) {
+                Toastify({
+                    text: SalaEliminada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let SalaActualizada = "@TempData["SalaActualizada"]";
+
+            if (SalaActualizada) {
+                Toastify({
+                    text: SalaActualizada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+            let SalaRegistrada = "@TempData["SalaRegistrada"]";
+
+            if (SalaRegistrada) {
+                Toastify({
+                    text: SalaRegistrada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+        
+        });
+
+    </script>
+}

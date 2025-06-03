@@ -1,0 +1,64 @@
+﻿@model SistemaCineMVC.Models.Pelicula
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Agregar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="IdPelicula" class="control-label"></label> *@
+            @*     <input asp-for="IdPelicula" class="form-control" /> *@
+            @*     <span asp-validation-for="IdPelicula" class="text-danger"></span> *@
+            @* </div> *@
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" placeholder="Titulo"/>
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genero" class="control-label"></label>
+                <input asp-for="Genero" id="genero" class="form-control" placeholder="Genero"/>
+                <span asp-validation-for="Genero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duracion" class="control-label"></label>
+                <input asp-for="Duracion" class="form-control" />
+                <span asp-validation-for="Duracion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clasificacion" class="control-label"></label>
+                <input asp-for="Clasificacion" class="form-control" placeholder="Clasificación"/>
+                <span asp-validation-for="Clasificacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sinopsis" class="control-label"></label>
+                <textarea asp-for="Sinopsis" class="form-control" rows="5" placeholder="Escribe aquí la sinopsis de la película..."></textarea>
+                <span asp-validation-for="Sinopsis" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-primary" /> |
+                <a asp-controller="Pelicula" asp-action="Lista" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        const generosPeliculas = 
+        ["Acción", "Comedia", "Drama",
+        "Terror", "Ciencia ficción",
+        "Fantasía", "Documental", 
+        "Romance", "Suspenso", "Aventura"];
+
+        $(function () {
+            // $("#fecha").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#genero").autocomplete({ source: generosPeliculas });
+        });
+    </script>
+}

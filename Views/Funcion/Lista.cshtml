@@ -1,0 +1,169 @@
+﻿@model IEnumerable<SistemaCineMVC.Models.Funcion>
+
+
+<h1 class="text-center">@ViewData["Titulo"]</h1>
+
+<div class="d-flex gap-3 align-items-center">
+    <a href="funcion/formulario" class="btn btn-primary">Agregar Funcion</a>
+
+    <div class="mb-0">
+        @* <label>Filtrar Por Título:</label> *@
+        <input type="text" id="filtroNombrePelicula" class="form-control" placeholder="Nombre Pelicula" />
+    </div>
+
+    <div class="mb-0">
+        @* <label>Filtrar Por Título:</label> *@
+        <input type="text" id="filtroSala" class="form-control" placeholder="Número Sala" />
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Pelicula
+            </th>
+            <th>
+                Sala
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th>
+               Inicio
+            </th>
+            <th>
+                Finaliza
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="fila-funcion">
+            <td class="idfuncion">
+                @Html.DisplayFor(modelItem => item.IdFuncion)
+            </td>
+            <td class="idpelicula">
+                @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Titulo)
+            </td>
+            <td class="idsala">
+                @Html.DisplayFor(modelItem => item.IdSalaNavigation.Nombre)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoraFin)
+                </td>
+            <td>
+                <a asp-controller="Funcion" asp-action="Editar" asp-route-id="@item.IdFuncion" class="btn btn-warning">Editar</a> |
+                    <a asp-controller="Funcion" asp-action="Confirmacion" asp-route-id="@item.IdFuncion" class="btn btn-danger">Eliminar</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let Noexiste = "@TempData["Noexiste"]";
+
+            if (Noexiste) {
+                Toastify({
+                    text: Noexiste,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+            let ErrorEliminar = "@TempData["ErrorEliminar"]";
+
+            if (ErrorEliminar) {
+                Toastify({
+                    text: ErrorEliminar,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+
+            let ExitoEliminado = "@TempData["ExitoEliminado"]";
+
+            if (ExitoEliminado) {
+                Toastify({
+                    text: ExitoEliminado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+            let ExitoRegistro = "@TempData["ExitoRegistro"]";
+
+            if (ExitoRegistro) {
+                Toastify({
+                    text: ExitoRegistro,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+
+            let ExitoActualiado = "@TempData["ExitoActualiado"]";
+
+            if (ExitoActualiado) {
+                Toastify({
+                    text: ExitoActualiado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+                $('#filtroNombrePelicula').on('keyup', function () {
+                let valorFiltro = $(this).val().toLowerCase();
+                $(".fila-funcion").filter(function () {
+                    $(this).toggle(
+                        $(this).find(".idpelicula").text().toLowerCase().includes(valorFiltro)
+                    );
+                });
+            });
+                            $('#filtroSala').on('keyup', function () {
+                let valorFiltro = $(this).val().toLowerCase();
+                $(".fila-funcion").filter(function () {
+                    $(this).toggle(
+                        $(this).find(".idsala").text().toLowerCase().includes(valorFiltro)
+                    );
+                });
+            });
+
+
+
+            });
+
+
+    </script>
+}
