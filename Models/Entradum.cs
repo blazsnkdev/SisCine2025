@@ -17,7 +17,7 @@ public partial class Entradum
 
     public virtual ICollection<DetalleVentum> DetalleVenta { get; set; } = new List<DetalleVentum>();
 
-    public virtual Asiento IdAsientoNavigation { get; set; } = null!;
+    public virtual Asiento? IdAsientoNavigation { get; set; }/* = null!;*/
 
-    public virtual Funcion IdFuncionNavigation { get; set; } = null!;
+    public virtual Funcion? IdFuncionNavigation { get; set; }/* = null!;*/
 }

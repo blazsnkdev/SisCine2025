@@ -1,0 +1,47 @@
+﻿@model SistemaCineMVC.Models.Entradum
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Entradum</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Entrada" asp-action="Actualizar" asp-route-id="@Model.IdEntrada" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="IdEntrada" class="control-label"></label> *@
+            @*     <input asp-for="IdEntrada" class="form-control" /> *@
+            @*     <span asp-validation-for="IdEntrada" class="text-danger"></span> *@
+            @* </div> *@
+            <div class="form-group">
+                <label asp-for="IdFuncion" class="control-label"></label>
+                <select asp-for="IdFuncion" class="form-control" asp-items="ViewBag.IdFuncion"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAsiento" class="control-label"></label>
+                <select asp-for="IdAsiento" class="form-control" asp-items="ViewBag.IdAsiento"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group"> 
+               <label asp-for="Estado" class="control-label"></label>
+                <input asp-for="Estado" class="form-control" readonly/>
+                <span asp-validation-for="Estado" class="text-danger"></span> 
+             </div> 
+             <br />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+

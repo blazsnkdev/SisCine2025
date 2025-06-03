@@ -7,10 +7,10 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a href="entrada/formulario" class="btn btn-primary">Crear Entrada</a>
 </p>
 <table class="table">
-    <thead>
+    <thead class="table table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.IdEntrada)
@@ -49,8 +49,8 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Detalle", "DetalleEntrada", new { id = item.IdEntrada }) |
+                    <a asp-controller="Entrada" asp-action="Editar" class="btn btn-warning" asp-route-id="@item.IdEntrada">Actualizar</a> |
+                <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-success" asp-route-id="@item.IdEntrada">Ver Detalle</a>
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>

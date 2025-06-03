@@ -15,8 +15,9 @@ namespace SistemaCineMVC.Services.Impl
 
         public void AddEntrada(Entradum entrada)
         {
-            entrada.Estado = "Disponible";
+            
             _context.Entrada.Add(entrada);
+            _context.SaveChanges();
         }
 
         public void DeleteEntrada(int id)
@@ -85,6 +86,7 @@ namespace SistemaCineMVC.Services.Impl
         {
             _context.Entrada.Update(entrada);
             _context.SaveChanges();
+            
         }
 
         public Asiento? VerDetalleAsiento(int id)
