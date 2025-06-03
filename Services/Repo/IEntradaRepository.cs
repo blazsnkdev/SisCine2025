@@ -16,6 +16,7 @@ namespace SistemaCineMVC.Services.Repo
         void UpdateEntrada(Entradum entrada);
         void DeleteEntrada(int id);
 
+        Task<Entradum?> VerDetalleEntrada(int id);
         Funcion? VerDetalleFuncion(int id);
         Asiento? VerDetalleAsiento(int id);
 

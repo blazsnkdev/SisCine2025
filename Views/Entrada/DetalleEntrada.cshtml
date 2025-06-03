@@ -1,0 +1,37 @@
+﻿@model SistemaCineMVC.Models.Entradum
+
+@{
+    ViewData["Title"] = "Detalle de Entrada";
+}
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title"><strong>ID Entrada: @Model.IdEntrada</strong></h5>
+        <p class="card-text">Precio: @Model.Precio</p>
+        <hr />
+        <h4 class="card-title">Función</h4>
+        <p class="card-text">Pelicula: @Model.IdFuncionNavigation?.IdPeliculaNavigation?.Titulo</p>
+        <p class="card-text">Nombre Sala: @Model.IdFuncionNavigation?.IdSalaNavigation?.Nombre</p>
+        <p class="card-text">Fecha: @Model.IdFuncionNavigation?.Fecha.ToShortDateString()</p>
+        <p class="card-text">Hora Inicio: @Model.IdFuncionNavigation?.HoraInicio</p>
+        <p class="card-text">Hora Fin: @Model.IdFuncionNavigation?.HoraFin</p>
+        <hr />
+        <h4 class="card-title">Asiento</h4>
+        <p class="card-text">Fila: @Model.IdAsientoNavigation?.Fila</p>
+        <p class="card-text">Número: @Model.IdAsientoNavigation?.Numero</p>
+        <hr />
+        <p class="card-text"><strong>Estado de la Entrada</strong>: @Model.Estado</p>
+    </div>
+</div>
+
+@* <script src="https://cdn.tailwindcss.com"></script> *@
+@* <script> *@
+@*     tailwind.config = { *@
+@*         theme: { *@
+@*             extend: { *@
+@*                 fontFamily: { *@
+@*                     inter: ['Inter', 'sans-serif'], *@
+@*                 }, *@
+@*             }, *@
+@*         }, *@
+@*     }; *@
+@* </script> *@

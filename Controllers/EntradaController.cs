@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaCineMVC.Services.Repo;
+using System.Threading.Tasks;
 
 namespace SistemaCineMVC.Controllers
 {
@@ -30,7 +31,15 @@ namespace SistemaCineMVC.Controllers
             var asientoSelec = _entradaRepository.VerDetalleAsiento(id);
             return View(asientoSelec);
         }
-
+        public async Task<IActionResult> DetalleEntrada(int id)
+        {
+            var entrada = await _entradaRepository.VerDetalleEntrada(id);
+            if (entrada == null)
+            {
+                return NotFound();
+            }
+            return View(entrada);
+        }
 
 
 

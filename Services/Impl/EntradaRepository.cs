@@ -28,7 +28,7 @@ namespace SistemaCineMVC.Services.Impl
 
         public Entradum? GetEntradaById(int id)
         {
-            var entrada = _context.Entrada
+            var entrada = _context.Entrada.ToList()
                 .FirstOrDefault(e => e.IdEntrada == id);
             return entrada;
         }
@@ -95,6 +95,20 @@ namespace SistemaCineMVC.Services.Impl
                 .FirstOrDefault();
 
             return detalleAsientoDeentrada;
+        }
+
+        public async Task<Entradum?> VerDetalleEntrada(int id)
+        {
+            var entrada = await _context.Entrada
+                .Include(e => e.IdFuncionNavigation) // Incluye la entidad Funcion
+                    .ThenInclude(f => f.IdPeliculaNavigation) // Luego, incluye la Pelicula dentro de Funcion
+                .Include(e => e.IdFuncionNavigation) // Vuelve a incluir Funcion para ThenInclude otra navegación
+                    .ThenInclude(f => f.IdSalaNavigation)     // Luego, incluye la Sala dentro de Funcion
+                .Include(e => e.IdAsientoNavigation) // Incluye la entidad Asiento
+                .AsNoTracking() // Usa AsNoTracking si solo vas a leer los datos y no modificarlos
+                .FirstOrDefaultAsync(e => e.IdEntrada == id); // Filtra por IdEntrada
+
+            return entrada;
         }
 
         public Funcion? VerDetalleFuncion(int id)
