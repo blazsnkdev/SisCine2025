@@ -79,14 +79,17 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
                 <td class="d-flex align-items-center gap-2">
-                    <a asp-controller="Entrada" asp-action="Editar" class="btn btn-warning" asp-route-id="@item.IdEntrada">Actualizar</a> |
+                    
                 <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-success" asp-route-id="@item.IdEntrada">Detalle</a> |
                 
                     <form asp-controller="Entrada" asp-action="MarcarVendido" asp-route-id="@item.IdEntrada" method="post">
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-outline-danger">Vender</button>
+                    </form> |
+                    <form asp-controller="Entrada" asp-action="MarcarCancelada" asp-route-id="@item.IdEntrada" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-primary">Cancelar</button>
                     </form>
-
                 
                 
             </td>

@@ -63,6 +63,13 @@ namespace SistemaCineMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> MarcarCancelada(int id)
+        {
+            await _entradaRepository.MarcarCancelada(id);
+            ViewData["Cancelada"] = "Entrada cancelada";
+            return RedirectToAction("Index");
+        }
+
 
 
 

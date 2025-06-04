@@ -18,7 +18,7 @@ namespace SistemaCineMVC.Services.Repo
 
 
         Task MarcarEntradaVendida(int id);
-
+        Task MarcarCancelada(int id);
 
 
 

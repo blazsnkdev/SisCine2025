@@ -15,11 +15,20 @@
         <p class="card-text">Hora Inicio: @Model.IdFuncionNavigation?.HoraInicio</p>
         <p class="card-text">Hora Fin: @Model.IdFuncionNavigation?.HoraFin</p>
         <hr />
-        <h4 class="card-title">Asiento</h4>
+        <h4 class="card-title">Asiento ID: @Model.IdAsientoNavigation?.IdAsiento</h4>
         <p class="card-text">Fila: @Model.IdAsientoNavigation?.Fila</p>
         <p class="card-text">Número: @Model.IdAsientoNavigation?.Numero</p>
         <hr />
         <p class="card-text"><strong>Estado de la Entrada</strong>: @Model.Estado</p>
+
+        <hr/>
+        <div>
+            <a asp-controller="Entrada" asp-action="Editar" class="btn btn-warning" asp-route-id="@Model.IdEntrada">Actualizar</a> |
+
+            <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+        </div>
     </div>
 </div>
+
+
 

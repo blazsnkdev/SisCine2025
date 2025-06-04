@@ -68,8 +68,17 @@ namespace SistemaCineMVC.Services.Impl
             return list;
         }
 
+        public async Task MarcarCancelada(int id)
+        {
+            var entrada = await _context.Entrada
+                .FirstOrDefaultAsync(e => e.IdEntrada == id);
+            if (entrada != null)
+            {
+                entrada.Estado = "Cancelada";
 
-
+                await _context.SaveChangesAsync();
+            }
+        }
 
         public async Task MarcarEntradaVendida(int id)
         {
