@@ -59,14 +59,14 @@ namespace SistemaCineMVC.Controllers
         public async Task<IActionResult> MarcarVendido(int id)
         {
             await _entradaRepository.MarcarEntradaVendida(id);
-            ViewData["Vendido"] = "Entrada vendida";
+            TempData["Vendido"] = "Entrada vendida";
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> MarcarCancelada(int id)
         {
             await _entradaRepository.MarcarCancelada(id);
-            ViewData["Cancelada"] = "Entrada cancelada";
+            TempData["Cancelada"] = "Entrada cancelada";
             return RedirectToAction("Index");
         }
 
@@ -140,7 +140,7 @@ namespace SistemaCineMVC.Controllers
 
         }
 
-        [Breadcrumb("Editar" , FromAction ="Index")]
+        [Breadcrumb("Editar" , FromAction = "DetalleEntrada")]
         [Route("entrada/editar/{id}")]
         public IActionResult Editar(int id,Entradum model)
         {
@@ -177,8 +177,20 @@ namespace SistemaCineMVC.Controllers
 
 
 
+        [HttpPost]
+        public IActionResult EliminarEntrada(int id)
+        {
+            var entrada = _entradaRepository.GetEntradaById(id);
+            if(entrada == null)
+            {
+                TempData["ErrorEliminar"] = "Error al eliminar";
+                return View("Index");
+            }
 
-
+            _entradaRepository.DeleteEntrada(id);
+            TempData["EliminarExito"] = "Entrada Eliminada con Exito";
+            return RedirectToAction("Index");
+        }
 
 
 

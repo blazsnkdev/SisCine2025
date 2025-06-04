@@ -21,11 +21,17 @@
         <hr />
         <p class="card-text"><strong>Estado de la Entrada</strong>: @Model.Estado</p>
 
-        <hr/>
-        <div>
+        
+        <div class="d-flex align-items-center gap-2">
             <a asp-controller="Entrada" asp-action="Editar" class="btn btn-warning" asp-route-id="@Model.IdEntrada">Actualizar</a> |
-
+            
+            
+            <form asp-controller="Entrada" asp-action="EliminarEntrada" asp-route-id="@Model.IdEntrada" method="post">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            </form>
+            
             <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+
         </div>
     </div>
 </div>

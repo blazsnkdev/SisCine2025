@@ -27,8 +27,8 @@
         <select name="estado" class="form-control">
             <option value="">-- Seleccionar Estado --</option>
             <option value="Disponible"> Disponible </option>
-            <option value="Vendido"> Vendido </option>
-            <option value="Cancelado"> Cancelado </option>
+            <option value="Vendida"> Vendido </option>
+            <option value="Cancelada"> Cancelado </option>
 
         </select>
         <button type="submit" class="btn btn-outline-info">Filtrar</button>
@@ -97,3 +97,106 @@
 }
     </tbody>
 </table>
+
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let ErrorEliminar = "@TempData["ErrorEliminar"]";
+
+            if (ErrorEliminar) {
+                Toastify({
+                    text: ErrorEliminar,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+                        let EliminarExito = "@TempData["EliminarExito"]";
+
+            if (EliminarExito) {
+                Toastify({
+                    text: EliminarExito,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+            let Vendido = "@TempData["Vendido"]";
+
+            if (Vendido) {
+                Toastify({
+                    text: Vendido,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+
+            let Cancelada = "@TempData["Cancelada"]";
+
+            if (Cancelada) {
+                Toastify({
+                    text: Cancelada,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#0384fc"
+                }).showToast();
+            }
+
+            let ExitoEliminado = "@TempData["ExitoEliminado"]";
+
+            if (ExitoEliminado) {
+                Toastify({
+                    text: ExitoEliminado,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+                        let RegistroExitoso = "@TempData["RegistroExitoso"]";
+
+            if (RegistroExitoso) {
+                Toastify({
+                    text: RegistroExitoso,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+                        let ActualizarExito = "@TempData["ActualizarExito"]";
+
+            if (ActualizarExito) {
+                Toastify({
+                    text: ActualizarExito,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4ccf90"
+                }).showToast();
+            }
+
+
+
+
+            });
+
+
+    </script>
+}

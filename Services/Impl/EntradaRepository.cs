@@ -24,7 +24,12 @@ namespace SistemaCineMVC.Services.Impl
         {
             var selec = _context.Entrada
                 .FirstOrDefault(e => e.IdEntrada == id);
-            _context.Entrada.Remove(selec);
+
+            if(selec != null)
+            {
+                _context.Entrada.Remove(selec);
+                _context.SaveChanges();
+            }
         }
 
         public Entradum? GetEntradaById(int id)
