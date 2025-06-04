@@ -14,7 +14,15 @@ namespace SistemaCineMVC.Services.Repo
 
 
         Entradum? GetEntradaById(int id);
-        void MarcarEntradaVendida(Entradum entrada);
+
+
+
+        Task MarcarEntradaVendida(int id);
+
+
+
+
+
         void ReservarEntrada(Entradum entrada);
         void AddEntrada(Entradum entrada);
         void UpdateEntrada(Entradum entrada);

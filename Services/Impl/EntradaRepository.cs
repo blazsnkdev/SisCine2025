@@ -71,21 +71,18 @@ namespace SistemaCineMVC.Services.Impl
 
 
 
-
-
-
-
-
-
-
-
-
-        public void MarcarEntradaVendida(Entradum entrada)
+        public async Task MarcarEntradaVendida(int id)
         {
-            var entradaSelc = _context.Entrada
-                .FirstOrDefault(e => e.IdEntrada == entrada.IdEntrada);
-            entradaSelc.Estado = "Vendido";
-            _context.SaveChanges();
+            var entrada = await _context.Entrada
+                .FirstOrDefaultAsync(e => e.IdEntrada == id); 
+
+            if (entrada != null)
+            {
+                entrada.Estado = "Vendida";
+         
+                await _context.SaveChangesAsync(); 
+            }
+         
         }
 
         public void ReservarEntrada(Entradum entrada)

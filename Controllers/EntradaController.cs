@@ -47,14 +47,21 @@ namespace SistemaCineMVC.Controllers
             else
             {
                 entradas = _entradaRepository.GetEntradas(); // Asumo que tienes un método para obtener todas las entradas
+                
+
             }
 
             ViewData["Titulo"] = titulo;
             return View(entradas);
         }
 
-
-
+        [HttpPost]
+        public async Task<IActionResult> MarcarVendido(int id)
+        {
+            await _entradaRepository.MarcarEntradaVendida(id);
+            ViewData["Vendido"] = "Entrada vendida";
+            return RedirectToAction("Index");
+        }
 
 
 
