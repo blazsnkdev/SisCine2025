@@ -32,6 +32,17 @@ namespace SistemaCineMVC.Services.Impl
             }
         }
 
+        public async Task<List<Entradum>> EntradasDisponibles()
+        {
+            var entradasDisponibles = await _context.Entrada
+                .Where(e => e.Estado == "Disponible")
+                .Include(e => e.IdAsientoNavigation)
+                .Include(e => e.IdFuncionNavigation)
+                .ThenInclude(f => f.IdPeliculaNavigation)
+                .ToListAsync();
+            return entradasDisponibles;
+        }
+
         public Entradum? GetEntradaById(int id)
         {
             var entrada = _context.Entrada.ToList()

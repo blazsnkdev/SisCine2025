@@ -12,6 +12,9 @@ namespace SistemaCineMVC.Services.Repo
 
 
 
+        Task<List<Entradum>> EntradasDisponibles();//para la view venta
+
+
 
         Entradum? GetEntradaById(int id);
 

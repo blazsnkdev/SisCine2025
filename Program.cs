@@ -15,6 +15,9 @@ builder.Services.AddScoped<ISalaService, SalaService>();
 builder.Services.AddScoped<IFuncionService, FuncionService>();
 builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
 
+builder.Services.AddScoped<IVentaRepository, VentaRepository>();
+
+
 var connectionString = builder.Configuration.GetConnectionString("cn1");
 builder.Services.AddDbContext<BdCine2025Context>(options =>
     options.UseSqlServer(connectionString));

@@ -9,7 +9,7 @@ public partial class Ventum
 
     public int IdCliente { get; set; }
 
-    public DateTime? FechaVenta { get; set; }
+    public DateTime? FechaVenta { get; set; } = DateTime.Now;//Fecha Actual
 
     public decimal? Total { get; set; }
 

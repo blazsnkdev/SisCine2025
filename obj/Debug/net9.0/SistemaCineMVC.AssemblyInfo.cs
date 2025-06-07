@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaCineMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+220510655e97331e67485e2ec0f5e1946bdb3ed6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3c3e7873016c249deb5c80f68d0f3f1a499d8c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaCineMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaCineMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

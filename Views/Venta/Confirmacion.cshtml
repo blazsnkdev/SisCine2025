@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Confirmación de Venta";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">
+                    <h2 class="mb-0">¡Venta Exitosa!</h2>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Su transacción ha sido completada con éxito.</h5>
+
+                    @if (TempData["VentaExitosa"] != null)
+                    {
+                        <p class="alert alert-success">@TempData["VentaExitosa"]</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Gracias por su compra.</p>
+                    }
+
+                    @if (ViewBag.VentaId != null)
+                    {
+                        <p class="card-text"><strong>Número de Venta:</strong> @ViewBag.VentaId</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">No se pudo recuperar el número de venta.</p>
+                    }
+
+                    <hr>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Volver al Inicio</a>
+                    <a asp-controller="Venta" asp-action="CrearVenta" class="btn btn-secondary mt-3">Realizar Nueva Venta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); // Incluir si tienes scripts globales o algo más que necesites
+    }
+}

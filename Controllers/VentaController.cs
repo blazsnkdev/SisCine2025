@@ -1,0 +1,127 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SistemaCineMVC.Models;
+using SistemaCineMVC.Models.ViewModels;
+using SistemaCineMVC.Services.Repo;
+
+namespace SistemaCineMVC.Controllers
+{
+    public class VentaController : Controller
+    {
+
+        private readonly IVentaRepository _ventaRepository;
+        private readonly IClienteService _clienteService;
+        private readonly IEntradaRepository _entradaRepository;
+        private readonly BdCine2025Context _context;
+        public VentaController(IVentaRepository ventaRepository, IClienteService clienteService, IEntradaRepository entradaRepository, BdCine2025Context context)
+        {
+            _ventaRepository = ventaRepository;
+            _clienteService = clienteService;
+            _entradaRepository = entradaRepository;
+            _context = context;
+        }
+
+        public IActionResult Index() => View();
+
+        [HttpGet]
+        public async Task<IActionResult> CrearVenta()
+        {
+            
+            ViewBag.Clientes = new SelectList(_clienteService.ListaClientes(), "IdCliente", "Nombre");
+            ViewBag.Entradas = await _entradaRepository.EntradasDisponibles(); 
+            var viewModel = new CrearVentaViewModel();
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CrearVenta(CrearVentaViewModel viewModel)
+        {
+            //CARGAR VIEW BAGS, LISTA Y CHEKBOX
+            ViewBag.Clientes = new SelectList(_clienteService.ListaClientes(), "IdCliente", "Nombre");
+            ViewBag.Entradas = await _entradaRepository.EntradasDisponibles();
+
+            //SI NO SE SELECIONO UN UNA ENTRADA
+            if (viewModel.EntradasSeleccionadasIds == null || !viewModel.EntradasSeleccionadasIds.Any())
+            {
+                ModelState.AddModelError("", "Debe seleccionar al menos una entrada.");//ESTO PUEDO CAMBIAR
+                return View(viewModel);
+            }
+            //SI EL MODELO NO ES VALIDO
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            //CREAMOS UNA LISTA DE DETALLE
+            var detalles = new List<DetalleVentum>();
+            decimal? totalVenta = 0m;//INICIALIZAMOS EL TOTAL DE VENTA 
+
+            foreach (var entradaId in viewModel.EntradasSeleccionadasIds)
+            {
+                var entrada = /*await*/ _entradaRepository.GetEntradaById(entradaId);// OBTENEMOS LA ENTRADA POR ID
+
+                if (entrada == null)//SI LA ENTRADA ES NULA
+                {
+                    ModelState.AddModelError("", $"La entrada con ID {entradaId} no fue encontrada o ya no está disponible.");
+                    return View(viewModel);
+                }
+
+                if (entrada.Estado != "Disponible" && entrada.Estado != "Reservado")//SI LA ENTRADA ES DIFERENTE A DISPONIBLE O ESTA RESEVADA NO APLICA
+                {
+                   
+                    string entryDescription = (entrada.IdFuncionNavigation != null && entrada.IdAsientoNavigation != null)
+                        ? $"Función: {entrada.IdFuncionNavigation.IdPeliculaNavigation?.Titulo} - Asiento: {entrada.IdAsientoNavigation.Fila}{entrada.IdAsientoNavigation.Numero}"
+                        : $"ID: {entradaId}";
+
+                    ModelState.AddModelError("", $"La entrada ({entryDescription}) no está disponible (Estado actual: {entrada.Estado}).");//MUESTRA EL ERROR CON EL DETALLE
+                    return View(viewModel); //RETURN VISTA CON LA DATA
+                }
+
+                detalles.Add(new DetalleVentum//AGREGAMOS UN DETALLE DE VENTA A LA LISTA
+                {
+                    IdEntrada = entrada.IdEntrada,
+                    PrecioUnitario = entrada.Precio
+                });
+
+                totalVenta += entrada.Precio;//VA SUMANDO EL PRECIO UNITARIO DE CADA ENTRADA AL total de la venta
+
+
+                await _entradaRepository.MarcarEntradaVendida(entrada.IdEntrada);// MARCA LA ENTRADA COMO VENDIDA
+            }
+            //CREAMOS LA VENTA CON LA LISTA DE DETALLES
+            var venta = new Ventum
+            {
+                IdCliente = viewModel.IdCliente,
+                FechaVenta = DateTime.Now,
+                Total = totalVenta,
+                DetalleVenta = detalles //LE PASAMOS LA LISTA DE DETALLES
+            };
+
+            //REGISTRO
+            await _ventaRepository.CrearVenta(venta); 
+            await _ventaRepository.Save(); 
+
+            TempData["VentaExitosa"] = "Venta registrada exitosamente!";
+            return RedirectToAction("Confirmacion", new { id = venta.IdVenta });
+        }
+
+        
+        public IActionResult Confirmacion(int id)
+        {
+            ViewBag.VentaId = id;
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
+}

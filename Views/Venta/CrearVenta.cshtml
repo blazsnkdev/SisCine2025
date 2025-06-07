@@ -1,0 +1,69 @@
+﻿@model SistemaCineMVC.Models.ViewModels.CrearVentaViewModel
+
+@{
+    ViewData["Title"] = "CrearVenta";
+    // Cast ViewBag items to their correct types for Intellisense and safety
+    var clientes = ViewBag.Clientes as SelectList;
+    var entradas = ViewBag.Entradas as List<Entradum>;
+}
+
+<h1>CrearVenta</h1>
+
+<h4>CrearVentaViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Venta" asp-action="CrearVenta" method="post">
+            @Html.AntiForgeryToken() @* Important: Add Anti-forgery token for security *@
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div>
+                <label for="IdCliente">Cliente:</label>
+                @* Use the SelectList from ViewBag.Clientes *@
+                <select asp-for="IdCliente" asp-items="clientes" class="form-control">
+                    <option value="">-- Seleccione un cliente --</option>
+                </select>
+                <span asp-validation-for="IdCliente" class="text-danger"></span>
+            </div>
+            <br />
+            <div>
+                <label>Entradas Disponibles:</label>
+                @if (entradas != null && entradas.Any()) // Check if the list is not null and has items
+                {
+                    @foreach (var entrada in entradas) @* Iterate over the list from ViewBag.Entradas *@
+                    {
+                        <div>
+                            <input type="checkbox" name="EntradasSeleccionadasIds" value="@entrada.IdEntrada" id="entrada_@entrada.IdEntrada" />
+                            <label for="entrada_@entrada.IdEntrada">
+                                @entrada.IdFuncionNavigation?.IdPeliculaNavigation?.Titulo -
+                                Asiento @entrada.IdAsientoNavigation?.Fila@entrada.IdAsientoNavigation?.Numero -
+                                @entrada.Estado -
+                                @entrada.Precio?.ToString("C")
+                            </label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-info">No hay entradas disponibles en este momento.</p>
+                }
+                <span asp-validation-for="EntradasSeleccionadasIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Registrar Venta" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
