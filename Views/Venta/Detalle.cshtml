@@ -1,0 +1,71 @@
+﻿@model SistemaCineMVC.Models.Ventum 
+
+@{
+    ViewData["Title"] = "Detalle de Venta"; @* More descriptive title *@
+}
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title"><strong>ID Venta: @Model.IdVenta</strong></h5>
+        <p class="card-text">Fecha de Venta: @Model.FechaVenta?.ToShortDateString() @Model.FechaVenta?.ToShortTimeString()</p> @* Display date and time nicely *@
+        <p class="card-text">Total de la Venta: @Model.Total?.ToString("C")</p> @* Format as currency *@
+        <hr />
+
+        <h4 class="card-title">Cliente</h4>
+        @* Use null-conditional operator for safety (?. ) *@
+        <p class="card-text">Nombre: @Model.IdClienteNavigation?.Nombre</p>
+        <p class="card-text">Apellido: @Model.IdClienteNavigation?.Apellido</p>
+        <p class="card-text">Correo Electrónico: @Model.IdClienteNavigation?.Email</p>
+        <p class="card-text">Teléfono: @Model.IdClienteNavigation?.Telefono</p>
+        <hr />
+
+        <h4 class="card-title">Detalles de las Entradas Vendidas</h4>
+        @* Iterate over the DetalleVenta collection of the Ventum model *@
+        @if (Model.DetalleVenta != null && Model.DetalleVenta.Any())
+        {
+            @foreach (var detalle in Model.DetalleVenta) @* <--- CHANGE THIS LOOP VARIABLE NAME *@
+            {
+                <div class="mb-3 p-3 border rounded"> @* Add some styling for each entry detail *@
+                    <h6>Entrada ID: @detalle.IdEntrada</h6> @* This is the ID of the individual entry *
+                    <p class="card-text">Precio Unitario: @detalle.PrecioUnitario?.ToString("C")</p>
+
+                    @* Access entry details via IdEntradaNavigation within each detalle *@
+                    <p class="card-text">Película: @detalle.IdEntradaNavigation?.IdFuncionNavigation?.IdPeliculaNavigation?.Titulo</p>
+                    <p class="card-text">Sala: @detalle.IdEntradaNavigation?.IdFuncionNavigation?.IdSalaNavigation?.Nombre</p>
+                    <p class="card-text">Asiento: @detalle.IdEntradaNavigation?.IdAsientoNavigation?.Fila@detalle.IdEntradaNavigation?.IdAsientoNavigation?.Numero</p> @* Corrected Asiento property access *@
+                    <p class="card-text">Fecha Función: @detalle.IdEntradaNavigation?.IdFuncionNavigation?.Fecha</p>
+                    <p class="card-text">Hora Inicio: @detalle.IdEntradaNavigation?.IdFuncionNavigation?.HoraInicio</p>
+                    <p class="card-text">Hora Fin: @detalle.IdEntradaNavigation?.IdFuncionNavigation?.HoraFin</p>
+                    <p class="card-text">Estado de Entrada: @detalle.IdEntradaNavigation?.Estado</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="card-text">No se encontraron detalles de entradas para esta venta.</p>
+        }
+        <hr />
+
+        @* REMOVED: Redundant or incorrect display of single entry details and actions *@
+        @* The actions below are for a single Entrada, not the overall Venta, and might be misplaced here.
+           If you want to edit/delete individual entries, those links should be next to each entry detail in the loop.
+           If these are for the Venta itself, they need to target VentaController actions and use IdVenta. *@
+
+        <div class="d-flex align-items-center gap-2">
+            @* Example: Link to edit the Venta (if such action exists) *@
+            @* <a asp-controller="Venta" asp-action="Editar" class="btn btn-warning" asp-route-id="@Model.IdVenta">Actualizar Venta</a> | *@
+            @* Example: Form to delete the Venta (if such action exists) *@
+            @* <form asp-controller="Venta" asp-action="EliminarVenta" asp-route-id="@Model.IdVenta" method="post">
+                <input type="submit" value="Eliminar Venta" class="btn btn-danger" /> |
+            </form> *@
+
+            <a asp-action="Index" class="btn btn-secondary">Regresar a Lista de Ventas</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

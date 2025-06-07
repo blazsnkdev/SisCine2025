@@ -7,11 +7,11 @@
     var entradas = ViewBag.Entradas as List<Entradum>;
 }
 
-<h1>CrearVenta</h1>
+<h1 class="text-center">Realizar Venta de Entradas</h1>
 
-<h4>CrearVentaViewModel</h4>
-<hr />
-<div class="row">
+<br />
+
+<div class="row text-center justify-content-center">
     <div class="col-md-4">
         <form asp-controller="Venta" asp-action="CrearVenta" method="post">
             @Html.AntiForgeryToken() @* Important: Add Anti-forgery token for security *@
@@ -46,24 +46,15 @@
                 }
                 else
                 {
-                    <p class="text-info">No hay entradas disponibles en este momento.</p>
+                    <p class="text-danger">No hay entradas disponibles en este momento.</p>
                 }
                 <span asp-validation-for="EntradasSeleccionadasIds" class="text-danger"></span>
             </div>
-
+            <br />
             <div class="form-group">
-                <input type="submit" value="Registrar Venta" class="btn btn-primary" />
+                <input type="submit" value="Registrar Venta" class="btn btn-primary" /> |
+                <a asp-action="Index" class="btn btn-secondary">Regresar</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

@@ -21,18 +21,20 @@
                         <p class="card-text">Gracias por su compra.</p>
                     }
 
-                    @if (ViewBag.VentaId != null)
+                    @if (ViewData["IdVenta"] != null)
                     {
-                        <p class="card-text"><strong>Número de Venta:</strong> @ViewBag.VentaId</p>
+                        <p class="card-text"><strong>Número de Venta:</strong> @ViewData["IdVenta"]</p>
                     }
                     else
                     {
                         <p class="card-text">No se pudo recuperar el número de venta.</p>
                     }
 
+
+
                     <hr>
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Volver al Inicio</a>
-                    <a asp-controller="Venta" asp-action="CrearVenta" class="btn btn-secondary mt-3">Realizar Nueva Venta</a>
+                    <a asp-controller="Venta" asp-action="CrearVenta" class="btn btn-secondary mt-3">Realizar Nueva Venta</a> |
+                    <a asp-controller="Venta" asp-action="Detalle" asp-route-id="@ViewData["IdVenta"]" class="btn btn-success mt-3">Ver detalle</a>
                 </div>
             </div>
         </div>

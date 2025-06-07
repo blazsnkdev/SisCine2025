@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaCineMVC.Models;
 using SistemaCineMVC.Models.ViewModels;
 using SistemaCineMVC.Services.Repo;
+using SmartBreadcrumbs.Attributes;
 
 namespace SistemaCineMVC.Controllers
 {
@@ -24,6 +25,7 @@ namespace SistemaCineMVC.Controllers
         public IActionResult Index() => View();
 
         [HttpGet]
+        [Breadcrumb("Venta", FromController = typeof(HomeController), FromAction = "Index")]
         public async Task<IActionResult> CrearVenta()
         {
             
@@ -106,12 +108,30 @@ namespace SistemaCineMVC.Controllers
             return RedirectToAction("Confirmacion", new { id = venta.IdVenta });
         }
 
-        
+
+        [Breadcrumb("Confirmación", FromAction = "CrearVenta")]
         public IActionResult Confirmacion(int id)
         {
-            ViewBag.VentaId = id;
+            ViewData["IdVenta"] = id;
             return View();
         }
+
+        [Breadcrumb("Detalle", FromAction = "CrearVenta")]
+        public async Task<IActionResult> Detalle(int id)
+        {
+           
+            var venta = await _ventaRepository.GetVentaById(id); // Use your existing method
+
+            if (venta == null)
+            {
+                return NotFound(); // Or RedirectToAction("Index") with an error message
+            }
+
+            // Pass the entire Ventum object to the view
+            return View(venta);
+        }
+
+
 
 
 

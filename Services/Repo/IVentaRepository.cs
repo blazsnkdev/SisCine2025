@@ -9,5 +9,9 @@ namespace SistemaCineMVC.Services.Repo
 
         Task Save();
 
+        Task<Ventum?> GetVentaById(int id);
+        Task<DetalleVentum?> GetDetalleVentaById(int id);
+
+
     }
 }
