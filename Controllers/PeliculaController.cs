@@ -7,8 +7,8 @@ namespace SistemaCineMVC.Controllers
 {
     public class PeliculaController : Controller
     {
-        private readonly IPeliculaService _peliculaService;
-        public PeliculaController(IPeliculaService peliculaService)
+        private readonly IPeliculaRepository _peliculaService;
+        public PeliculaController(IPeliculaRepository peliculaService)
         {
             _peliculaService = peliculaService;
         }

@@ -9,9 +9,9 @@ namespace SistemaCineMVC.Controllers
     public class AsientoController : Controller
     {
 
-        private readonly IAsientoService _asientoService;
+        private readonly IAsientoRepository _asientoService;
         private readonly BdCine2025Context _context;
-        public AsientoController(IAsientoService servicio, BdCine2025Context context)
+        public AsientoController(IAsientoRepository servicio, BdCine2025Context context)
         {
             _asientoService = servicio;
             _context = context;

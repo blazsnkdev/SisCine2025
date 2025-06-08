@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaCineMVC.Models;
+using SistemaCineMVC.Services.Interfaces;
 using SistemaCineMVC.Services.Repo;
 using SmartBreadcrumbs.Attributes;
 
@@ -9,23 +10,26 @@ namespace SistemaCineMVC.Controllers
     public class FuncionController : Controller
     {
 
+        private readonly IFuncionRepository _funcionRepository;
+        // Inyectamos los servicios necesarios
         private readonly IFuncionService _funcionService;
         //private readonly IPeliculaService _peliculaService;
         //private readonly ISalaService _salaService;
 
         private readonly BdCine2025Context _dbcine2025Context;
 
-        public FuncionController(IFuncionService funcionService, BdCine2025Context dbcine2025Context)
+        public FuncionController(IFuncionRepository funcionRepository, BdCine2025Context dbcine2025Context, IFuncionService funcionService)
         {
-            _funcionService = funcionService;
+            _funcionRepository = funcionRepository;
             _dbcine2025Context = dbcine2025Context;
+            _funcionService = funcionService;
         }
 
         [Breadcrumb("Funcion", FromController = typeof(HomeController), FromAction = "Index")]
         [Route("funcion")]
         public IActionResult Lista()
         {
-            var lista = _funcionService.Lista();
+            var lista = _funcionRepository.Lista();
             ViewData["Titulo"] = "Lista de Funciones";
             return View(lista);
         }
@@ -37,7 +41,7 @@ namespace SistemaCineMVC.Controllers
 
             ViewData["IdSala"] = new SelectList(_dbcine2025Context.Salas,"IdSala","Nombre");
             ViewData["IdPelicula"] = new SelectList(_dbcine2025Context.Peliculas, "IdPelicula", "Titulo");
-            ViewData["Titulo"] = "Registrar Funcion";
+            
             return View();
         }
 
@@ -45,19 +49,23 @@ namespace SistemaCineMVC.Controllers
         [Route("funcion/agregar")]
         public IActionResult Registrar(Funcion model)
         {
-        
             if (ModelState.IsValid)
             {
-                _funcionService.Agregar(model);
-                TempData["ExitoRegistro"] = "Registrado Correctamente";
-                return RedirectToAction("Lista");
+                try
+                {
+                    _funcionService.Agregar(model);//utilizo mi sevicio
+                    TempData["ExitoRegistro"] = "Registrado Correctamente";
+                    return RedirectToAction("Lista");
+                }
+                catch (ArgumentException ex)
+                {
+                    ViewData["MensajeError"] = ex.Message;
+                }
             }
-            else
-            {
                 ViewData["IdSala"] = new SelectList(_dbcine2025Context.Salas, "IdSala", "Nombre");
                 ViewData["IdPelicula"] = new SelectList(_dbcine2025Context.Peliculas, "IdPelicula", "Titulo");
                 return View("Formulario", model);
-            }
+            
         }
 
 
@@ -65,7 +73,7 @@ namespace SistemaCineMVC.Controllers
         [Route("funcion/editar/{id}")]
         public IActionResult Editar(int id)
         {
-            var funcion = _funcionService.ObtenerFuncion(id);
+            var funcion = _funcionRepository.ObtenerFuncion(id);
 
             if(funcion == null)
             {
@@ -88,7 +96,7 @@ namespace SistemaCineMVC.Controllers
             if (ModelState.IsValid)
             {
 
-                var funcionObj = _funcionService.ObtenerFuncion(id);
+                var funcionObj = _funcionRepository.ObtenerFuncion(id);
                 if(funcionObj == null)
                 {
                     return NotFound();
@@ -99,7 +107,7 @@ namespace SistemaCineMVC.Controllers
                 funcionObj.HoraInicio = model.HoraInicio;
                 funcionObj.HoraFin = model.HoraFin;
 
-                _funcionService.Actualizar(funcionObj);
+                _funcionRepository.Actualizar(funcionObj);
                 TempData["ExitoActualiado"] = "Se Actualizo correctamente";
                 return RedirectToAction("Lista");
             }
@@ -113,7 +121,7 @@ namespace SistemaCineMVC.Controllers
         [Route("funcion/confirmacion/{id}")]
         public IActionResult Confirmacion(int id)
         {
-            var persona = _funcionService.ObtenerFuncion(id);
+            var persona = _funcionRepository.ObtenerFuncion(id);
             if(persona == null)
             {
                 ViewData["Titulo"] = "Editar Funcion";
@@ -129,14 +137,14 @@ namespace SistemaCineMVC.Controllers
         [Route("funcion/eliminar/{id}")]
         public IActionResult Eliminar(int id)
         {
-            var persona = _funcionService.ObtenerFuncion(id);//encotrar registro
+            var persona = _funcionRepository.ObtenerFuncion(id);//encotrar registro
             
             if (persona == null)//si el registro no existe
             {
                 TempData["ErrorEliminar"] = "Error al Eliminar";//devuelve la misma vista con una not
                 return View("Confirmacion") ;
             }
-            _funcionService.Eliminar(id);//se elimna
+            _funcionRepository.Eliminar(id);//se elimna
             TempData["ExitoEliminado"] = "Eliminado Correctamente";//mensaje conf
             return RedirectToAction("Lista");//devolver la lista
         }

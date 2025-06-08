@@ -2,7 +2,7 @@
 
 namespace SistemaCineMVC.Services.Repo
 {
-    public interface ISalaService
+    public interface ISalaRepository
     {
 
         List<Sala> ListaSalas();

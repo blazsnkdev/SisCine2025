@@ -11,10 +11,10 @@ namespace SistemaCineMVC.Controllers
     {
 
         private readonly IVentaRepository _ventaRepository;
-        private readonly IClienteService _clienteService;
+        private readonly IClienteRepository _clienteService;
         private readonly IEntradaRepository _entradaRepository;
         private readonly BdCine2025Context _context;
-        public VentaController(IVentaRepository ventaRepository, IClienteService clienteService, IEntradaRepository entradaRepository, BdCine2025Context context)
+        public VentaController(IVentaRepository ventaRepository, IClienteRepository clienteService, IEntradaRepository entradaRepository, BdCine2025Context context)
         {
             _ventaRepository = ventaRepository;
             _clienteService = clienteService;
@@ -80,27 +80,27 @@ namespace SistemaCineMVC.Controllers
                     return View(viewModel); //RETURN VISTA CON LA DATA
                 }
 
-                detalles.Add(new DetalleVentum//AGREGAMOS UN DETALLE DE VENTA A LA LISTA
+                detalles.Add(new DetalleVentum
                 {
                     IdEntrada = entrada.IdEntrada,
                     PrecioUnitario = entrada.Precio
                 });
 
-                totalVenta += entrada.Precio;//VA SUMANDO EL PRECIO UNITARIO DE CADA ENTRADA AL total de la venta
+                totalVenta += entrada.Precio;
 
 
-                await _entradaRepository.MarcarEntradaVendida(entrada.IdEntrada);// MARCA LA ENTRADA COMO VENDIDA
+                await _entradaRepository.MarcarEntradaVendida(entrada.IdEntrada);
             }
-            //CREAMOS LA VENTA CON LA LISTA DE DETALLES
+            
             var venta = new Ventum
             {
                 IdCliente = viewModel.IdCliente,
                 FechaVenta = DateTime.Now,
                 Total = totalVenta,
-                DetalleVenta = detalles //LE PASAMOS LA LISTA DE DETALLES
+                DetalleVenta = detalles 
             };
 
-            //REGISTRO
+            
             await _ventaRepository.CrearVenta(venta); 
             await _ventaRepository.Save(); 
 

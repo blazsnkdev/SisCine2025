@@ -1,6 +1,6 @@
 ﻿@model SistemaCineMVC.Models.Funcion
 
-<h1>@ViewData["Titulo"]</h1>
+<h1>Formulario Registro Función</h1>
 
 
 <div class="row">
@@ -47,3 +47,30 @@
         </form>
     </div>
 </div>
+
+
+
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            let MensajeError = "@ViewData["MensajeError"]";
+            if (MensajeError) {
+                Toastify({
+                    text: MensajeError,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f54251"
+                }).showToast();
+            }
+
+
+            });
+
+
+    </script>
+}
+

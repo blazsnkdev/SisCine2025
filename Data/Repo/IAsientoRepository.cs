@@ -2,7 +2,7 @@
 
 namespace SistemaCineMVC.Services.Repo
 {
-    public interface IAsientoService
+    public interface IAsientoRepository
     {
         List<Asiento> ListarAsiento();
         List<Asiento> ListarPorSala(int? idSala);

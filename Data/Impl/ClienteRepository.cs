@@ -4,11 +4,11 @@ using SistemaCineMVC.Services.Repo;
 
 namespace SistemaCineMVC.Services.Impl
 {
-    public class ClienteService : IClienteService
+    public class ClienteRepository : IClienteRepository
     {
 
         private readonly BdCine2025Context _context;
-        public ClienteService(BdCine2025Context context)
+        public ClienteRepository(BdCine2025Context context)
         {
             _context = context;
         }

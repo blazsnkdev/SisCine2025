@@ -2,7 +2,7 @@
 
 namespace SistemaCineMVC.Services.Repo
 {
-    public interface IPeliculaService
+    public interface IPeliculaRepository
     {
         List<Pelicula> ListaPeliculas();
         void AgregarPelicula(Pelicula pelicula);

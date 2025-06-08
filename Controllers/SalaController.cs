@@ -8,8 +8,8 @@ namespace SistemaCineMVC.Controllers
 {
     public class SalaController : Controller
     {
-        private readonly ISalaService _salaService;
-        public SalaController(ISalaService salaService)
+        private readonly ISalaRepository _salaService;
+        public SalaController(ISalaRepository salaService)
         {
             _salaService = salaService;
         }

@@ -3,11 +3,11 @@ using SistemaCineMVC.Services.Repo;
 
 namespace SistemaCineMVC.Services.Impl
 {
-    public class SalaService : ISalaService
+    public class SalaRepository : ISalaRepository
     {
 
         private readonly BdCine2025Context _context;
-        public SalaService(BdCine2025Context context)
+        public SalaRepository(BdCine2025Context context)
         {
             _context = context;
         }

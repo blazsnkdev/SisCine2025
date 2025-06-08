@@ -1,21 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaCineMVC.Models;
 using SistemaCineMVC.Services.Impl;
+using SistemaCineMVC.Services.Interfaces;
 using SistemaCineMVC.Services.Repo;
 using SmartBreadcrumbs.Extensions;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddScoped <IAsientoService,AsientoService>();
-builder.Services.AddScoped<IClienteService, ClienteService>();
-builder.Services.AddScoped<IPeliculaService, PeliculaService>();
-builder.Services.AddScoped<ISalaService, SalaService>();
-builder.Services.AddScoped<IFuncionService, FuncionService>();
+//REPOSITORIOS
+builder.Services.AddScoped <IAsientoRepository,AsientoRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IPeliculaRepository, PeliculaRepository>();
+builder.Services.AddScoped<ISalaRepository, SalaRepository>();
+builder.Services.AddScoped<IFuncionRepository, FuncionRepository>();
 builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
-
 builder.Services.AddScoped<IVentaRepository, VentaRepository>();
+
+
+//SERVICIOS
+builder.Services.AddScoped<IFuncionService, FuncionService>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("cn1");

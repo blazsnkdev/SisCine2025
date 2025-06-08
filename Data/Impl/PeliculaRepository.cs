@@ -3,10 +3,10 @@ using SistemaCineMVC.Services.Repo;
 
 namespace SistemaCineMVC.Services.Impl
 {
-    public class PeliculaService : IPeliculaService
+    public class PeliculaRepository : IPeliculaRepository
     {
         private readonly BdCine2025Context _context;
-        public PeliculaService(BdCine2025Context context)
+        public PeliculaRepository(BdCine2025Context context)
         {
             _context = context;
         }

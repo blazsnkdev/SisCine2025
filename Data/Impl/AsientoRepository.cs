@@ -4,12 +4,12 @@ using SistemaCineMVC.Services.Repo;
 
 namespace SistemaCineMVC.Services.Impl
 {
-    public class AsientoService : IAsientoService
+    public class AsientoRepository : IAsientoRepository
     {
 
         private readonly BdCine2025Context _context;
 
-        public AsientoService(BdCine2025Context context)
+        public AsientoRepository(BdCine2025Context context)
         {
             _context = context;
         }

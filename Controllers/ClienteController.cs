@@ -10,9 +10,9 @@ namespace SistemaCineMVC.Controllers
     {
 
 
-        private readonly IClienteService _clienteService;
+        private readonly IClienteRepository _clienteService;
 
-        public ClienteController(IClienteService clienteService)
+        public ClienteController(IClienteRepository clienteService)
         {
             _clienteService = clienteService;
         }

@@ -2,7 +2,7 @@
 
 namespace SistemaCineMVC.Services.Repo
 {
-    public interface IClienteService
+    public interface IClienteRepository
     {
 
         List<Cliente> ListaClientes();
