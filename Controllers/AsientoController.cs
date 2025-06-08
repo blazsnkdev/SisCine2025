@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SistemaCineMVC.Models;
+using SistemaCineMVC.Services.Interfaces;
 using SistemaCineMVC.Services.Repo;
 using SmartBreadcrumbs.Attributes;
 
@@ -9,12 +10,14 @@ namespace SistemaCineMVC.Controllers
     public class AsientoController : Controller
     {
 
-        private readonly IAsientoRepository _asientoService;
+        private readonly IAsientoRepository _asientoRepository;
         private readonly BdCine2025Context _context;
-        public AsientoController(IAsientoRepository servicio, BdCine2025Context context)
+        private readonly IAsientoService _asientoService;
+        public AsientoController(IAsientoRepository asientoRepository, BdCine2025Context context, IAsientoService asientoService)
         {
-            _asientoService = servicio;
+            _asientoRepository = asientoRepository;
             _context = context;
+            _asientoService = asientoService;
         }
 
         [Breadcrumb("Asiento", FromController =typeof(HomeController), FromAction ="Index")]
@@ -23,8 +26,8 @@ namespace SistemaCineMVC.Controllers
         {
             if (idSala.HasValue)
             {
-                var sala = _asientoService.ObtenerAsiento(idSala.Value);
-                var listaParam = _asientoService.ListarPorSala(idSala);
+                var sala = _asientoRepository.ObtenerAsiento(idSala.Value);
+                var listaParam = _asientoRepository.ListarPorSala(idSala);
                 ViewData["IdSala"] = new SelectList(_context.Salas, "IdSala", "Nombre");
                 ViewData["Titulo"] = $"Asientos en la Sala";
                 return View(listaParam);
@@ -32,7 +35,7 @@ namespace SistemaCineMVC.Controllers
             else
             {
 
-                var lista = _asientoService.ListarAsiento();
+                var lista = _asientoRepository.ListarAsiento();
                 ViewData["IdSala"] = new SelectList(_context.Salas, "IdSala", "Nombre");
                 ViewData["Titulo"] = "Lista Asientos Por Sala";
                 return View(lista);
@@ -47,7 +50,7 @@ namespace SistemaCineMVC.Controllers
         public IActionResult Formulario()
         {
             ViewData["IdSala"] = new SelectList(_context.Salas, "IdSala", "Nombre");
-            ViewData["Titulo"] = "Registrar Asiento";
+            
             return View();
         }
 
@@ -57,23 +60,28 @@ namespace SistemaCineMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _asientoService.AgregarAsiento(model);
-                TempData["ExitoRegistro"] = "Registrado Correctamente";
-                return RedirectToAction("Lista");
+                try
+                {
+                    _asientoService.Agregar(model);
+                    TempData["ExitoRegistro"] = "Registrado Correctamente";
+                    return RedirectToAction("Lista");
+                }
+                catch (ArgumentException ex)
+                {
+                    ViewData["MensajeError"] = ex.Message;
+                }
             }
-            else
-            {
                 ViewData["IdSala"] = new SelectList(_context.Salas, "IdSala", "Nombre");
-                ViewData["ErrorRegistro"] = "Error al Registrar";//en la vista del form
+                
                 return View("Formulario", model);
-            }
+            
         }
 
         [Breadcrumb("Editar", FromAction ="Lista")]
         [Route("asiento/editar/{id:int}")]
         public IActionResult Editar(int id, Asiento model)
         {
-            var asiento = _asientoService.ObtenerAsiento(id);
+            var asiento = _asientoRepository.ObtenerAsiento(id);
             if (asiento == null)
             {
                 ViewData["NoEncontrado"] = "No se encuentra el ID";
@@ -88,13 +96,13 @@ namespace SistemaCineMVC.Controllers
 
             if(ModelState.IsValid)
             {
-                var asiento = _asientoService.ObtenerAsiento(id);
+                var asiento = _asientoRepository.ObtenerAsiento(id);
                 
                 asiento.IdSala = model.IdSala;
                 asiento.Fila = model.Fila;
                 asiento.Numero = model.Numero;
 
-                _asientoService.ActualizarAsiento(asiento);
+                _asientoRepository.ActualizarAsiento(asiento);
                 TempData["ExitoActualiado"] = "Se Actualizo correctamente";
                 return RedirectToAction("Lista");
             }
@@ -108,7 +116,7 @@ namespace SistemaCineMVC.Controllers
         [Route("asiento/confirmacion/{id:int}")]
         public IActionResult Confirmacion(int id)
         {
-            var selec = _asientoService.ObtenerAsiento(id);
+            var selec = _asientoRepository.ObtenerAsiento(id);
             if(selec == null)
             {
 
@@ -122,13 +130,13 @@ namespace SistemaCineMVC.Controllers
         [Route("asiento/eliminar/{id:int}")]
         public IActionResult Eliminar(int id)
         {
-            var selec = _asientoService.ObtenerAsiento(id);
+            var selec = _asientoRepository.ObtenerAsiento(id);
             if (selec == null)
             {
                 ViewData["ErrorEliminar"] = "Error al eliminar";
                 return View("Confirmacion");
             }
-            _asientoService.EliminarAsiento(id);
+            _asientoRepository.EliminarAsiento(id);
             TempData["ExitoEliminado"]= "Eliminado Exitoso";
             return RedirectToAction("Lista");
             

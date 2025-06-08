@@ -20,6 +20,9 @@ builder.Services.AddScoped<IVentaRepository, VentaRepository>();
 
 //SERVICIOS
 builder.Services.AddScoped<IFuncionService, FuncionService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IAsientoService, AsientoService>();
+
 
 
 var connectionString = builder.Configuration.GetConnectionString("cn1");

@@ -53,10 +53,16 @@ namespace SistemaCineMVC.Services.Impl
             _context.SaveChanges();
         }
 
+        public bool EmailExiste(string email)
+        {
+            return _context.Clientes.Any(c => c.Email == email);
+
+        }
+
         //public Cliente BuscarPorNombre(string nombre)
         //{
         //    var cliente = _context.Clientes.FirstOrDefault(c => c.Nombre == nombre);
-            
+
         //    return cliente;
 
         //}

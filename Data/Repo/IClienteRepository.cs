@@ -10,6 +10,9 @@ namespace SistemaCineMVC.Services.Repo
         void AgregarCliente(Cliente cliente);
         void ActualizarCliente(/*int id,*/ Cliente cliente);
         void EliminarCliente(int id);
+
+        bool EmailExiste(string email);
+
         //Cliente BuscarPorNombre(string nombre);
     }
 }

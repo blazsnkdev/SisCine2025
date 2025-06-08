@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaCineMVC.Models;
+using SistemaCineMVC.Services.Interfaces;
 using SistemaCineMVC.Services.Repo;
 using SmartBreadcrumbs.Attributes;
 
@@ -10,10 +11,12 @@ namespace SistemaCineMVC.Controllers
     {
 
 
-        private readonly IClienteRepository _clienteService;
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IClienteService _clienteService;
 
-        public ClienteController(IClienteRepository clienteService)
+        public ClienteController(IClienteRepository clienteRepository, IClienteService clienteService)
         {
+            _clienteRepository = clienteRepository;
             _clienteService = clienteService;
         }
 
@@ -22,25 +25,16 @@ namespace SistemaCineMVC.Controllers
         public IActionResult Lista()
         {
             ViewData["Titulo"] = "Lista de Clientes";
-            var lista = _clienteService.ListaClientes();
+            var lista = _clienteRepository.ListaClientes();
             return View(lista);
         }
-
-
-
-
-
-
-
-
-
 
 
         [Breadcrumb("Detalle", FromAction = "Lista")]
         [Route("cliente/{id}")]
         public IActionResult Detalle(int id)
         {
-            var cliente = _clienteService.ObtenerCliente(id);
+            var cliente = _clienteRepository.ObtenerCliente(id);
             if (cliente == null)
             {
                 TempData["DetalleNoEncontrado"] = $"Cliente con ID {id} no encontrado";
@@ -64,19 +58,29 @@ namespace SistemaCineMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _clienteService.AgregarCliente(cliente);
-                TempData["ClienteRegistrado"] = $"Cliente {cliente.Nombre} fue agregado correctamente";
-                return RedirectToAction("Lista");
+                try
+                {
+                    _clienteService.Agregar(cliente);
+                    TempData["ClienteRegistrado"] = $"Cliente {cliente.Nombre} fue agregado correctamente";
+                    return RedirectToAction("Lista");
+                }
+                catch (ArgumentException ex)
+                {
+                    ViewData["MensajeError"] = ex.Message;
+                }
             }
             ViewData["Titulo"] = "Registrar Cliente";
             return View(cliente);
         }
 
+
+
+
         [Breadcrumb("Editar", FromAction = "Detalle")]
         [Route("cliente/editar/{id}")]
         public IActionResult Editar(int id)
         {
-            var cliente = _clienteService.ObtenerCliente(id);
+            var cliente = _clienteRepository.ObtenerCliente(id);
             if (cliente == null)
             {
                 TempData["DetalleNoEncontrado"] = $"Cliente con ID {id} no encontrado";
@@ -96,7 +100,7 @@ namespace SistemaCineMVC.Controllers
             if (ModelState.IsValid)
             {
 
-                var clienteExistente = _clienteService.ObtenerCliente(id);
+                var clienteExistente = _clienteRepository.ObtenerCliente(id);
                 if (clienteExistente == null)
                 {
                     TempData["DetalleNoEncontrado"] = $"Cliente con ID {id} no encontrado";
@@ -109,7 +113,7 @@ namespace SistemaCineMVC.Controllers
                 clienteExistente.Email = model.Email;
 
 
-                    _clienteService.ActualizarCliente(clienteExistente); 
+                    _clienteRepository.ActualizarCliente(clienteExistente); 
                     TempData["ClienteActualizado"] = $"Cliente {model.Nombre} fue actualizado correctamente"; 
                     return RedirectToAction("Lista");       
             }
@@ -122,27 +126,13 @@ namespace SistemaCineMVC.Controllers
         [Route("cliente/eliminar/{id}")]
         public IActionResult Eliminar(int id)
         {
-            _clienteService.EliminarCliente(id);
+            _clienteRepository.EliminarCliente(id);
             TempData["ClienteEliminado"] = "Cliente eliminado correctamente";
             return RedirectToAction("Lista");
         }
 
 
-        //[HttpGet]
-        //[Route("cliente/buscar/{nombre}")]
-        //public IActionResult Buscar(string nombre)
-        //{
-        //    var cliente = _clienteService.BuscarPorNombre(nombre);
-        //    if (cliente != null)
-        //    {
-                
-        //        return View("Detalle", cliente);
-        //    }
-        //        ViewData["Mensaje"] = $"Usuario {nombre} no encontrado";
-        //        return View("Lista", _clienteService.ListaClientes());
-            
-        //}
-
+       
 
 
     }

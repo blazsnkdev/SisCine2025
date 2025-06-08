@@ -47,5 +47,24 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+
+            $(function () {
+
+        let MensajeError = "@ViewData["MensajeError"]";
+
+                if (MensajeError) {
+                    Toastify({
+                        text: MensajeError,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#f54251"
+                    }).showToast();
+                }
+             });
+
+
+    </script>
+
 }

@@ -45,20 +45,20 @@
 @section Scripts {
     <script>
 
-        $(function () {
+         $(function () {
 
-            let ErrorRegistro = "@TempData["ErrorRegistro"]";
+        let MensajeError = "@ViewData["MensajeError"]";
 
-            if (ErrorRegistro) {
-                Toastify({
-                    text: ErrorRegistro,
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#f54251"
-                }).showToast();
-            }
-
+                if (MensajeError) {
+                    Toastify({
+                        text: MensajeError,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#f54251"
+                    }).showToast();
+                }
+             });
 
 
     </script>
