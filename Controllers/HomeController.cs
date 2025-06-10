@@ -1,22 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using SistemaCineMVC.Data.Repo;
 using SistemaCineMVC.Models;
 using SmartBreadcrumbs.Attributes;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SistemaCineMVC.Controllers
 {
     [DefaultBreadcrumb("Inicio")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUnitOfWork _UoW;
+        public HomeController(IUnitOfWork uow)
         {
-            _logger = logger;
+            _UoW = uow;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var countClientes = await _UoW.Cliente.CountEntityAsync();
+            var countPeliculas = await _UoW.Pelicula.CountEntityAsync();
+            var countDetalleVenta = await _UoW.DetalleVenta.CountEntityAsync();
+            var countFunciones = await _UoW.Funcion.CountEntityAsync();
+
+            ViewBag.CountClientes = countClientes;
+            ViewBag.CountPeliculas = countPeliculas;
+            ViewBag.CountDetalleVentas = countDetalleVenta;
+            ViewBag.CountFunciones = countFunciones;
             return View();
         }
 

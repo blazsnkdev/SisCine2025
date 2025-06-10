@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using SistemaCineMVC.Data.Impl;
+using SistemaCineMVC.Data.Repo;
 using SistemaCineMVC.Models;
 using SistemaCineMVC.Services.Impl;
 using SistemaCineMVC.Services.Interfaces;
@@ -24,11 +26,21 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IAsientoService, AsientoService>();
 
 
-
+//BDCONTEXT
 var connectionString = builder.Configuration.GetConnectionString("cn1");
 builder.Services.AddDbContext<BdCine2025Context>(options =>
     options.UseSqlServer(connectionString));
 
+//UNIT OF WORK AND REPOSITORIES GENERIC
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
+
+
+
+//BREADCRUMS
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly(), options =>
 {
     options.TagName = "nav";

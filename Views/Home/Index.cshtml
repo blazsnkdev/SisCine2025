@@ -1,8 +1,469 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    /* Hero Section */
+    .cinema-hero {
+        background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+        color: white;
+        padding: 4rem 0;
+        border-radius: 20px;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .cinema-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cinema" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23cinema)"/></svg>');
+            opacity: 0.3;
+        }
+
+    .cinema-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Stats Cards */
+    .cinema-stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+        .cinema-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .cinema-stat-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .cinema-stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--cinema-red);
+        margin-bottom: 0.5rem;
+    }
+
+    .cinema-stat-label {
+        color: var(--cinema-gray);
+        font-weight: 500;
+    }
+
+    /* Quick Actions */
+    .quick-action-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: none;
+        height: 100%;
+    }
+
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .quick-action-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Movie Cards */
+    .movie-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .movie-poster {
+        height: 200px;
+        background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 3rem;
+    }
+
+    .movie-rating {
+        background: var(--cinema-gold);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Recent Activity */
+    .activity-item {
+        padding: 1rem;
+        border-left: 3px solid var(--cinema-red);
+        background: white;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .activity-time {
+        color: var(--cinema-gray);
+        font-size: 0.85rem;
+    }
+
+</style>
+
+<!-- Hero Section -->
+<section class="cinema-hero">
+    <div class="cinema-hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">Sistema de Gestión de Cine</h1>
+                <p class="lead mb-4">Administra películas, salas, funciones, ventas y más desde un solo lugar. Controla tu negocio de manera eficiente y moderna.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="@Url.Action("CrearVenta", "Venta")" class="btn btn-light btn-lg">
+                        <i class="fas fa-ticket-alt me-2"></i> Nueva Venta
+                    </a>
+                    <a href="@Url.Action("Lista", "Funcion")" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i> Ver Funciones
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fas fa-film" style="font-size: 8rem; opacity: 0.3;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats -->
+<section class="row mb-5">
+    <div class="col-md-3 mb-4">
+        <div class="cinema-stat-card">
+            <div class="cinema-stat-icon">
+                <i class="fas fa-film"></i>
+            </div>
+            <div class="cinema-stat-number">@ViewBag.CountPeliculas</div>
+            <div class="cinema-stat-label">Películas en Cartelera</div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="cinema-stat-card">
+            <div class="cinema-stat-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="cinema-stat-number">@ViewBag.CountFunciones</div>
+            <div class="cinema-stat-label">Funciones Hoy</div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="cinema-stat-card">
+            <div class="cinema-stat-icon">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <div class="cinema-stat-number">@ViewBag.CountDetalleVentas</div>
+            <div class="cinema-stat-label">Entradas Vendidas</div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="cinema-stat-card">
+            <div class="cinema-stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="cinema-stat-number">@ViewBag.CountClientes</div>
+            <div class="cinema-stat-label">Clientes Registrados</div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions -->
+<section class="mb-5">
+    <h2 class="mb-4"><i class="fas fa-bolt me-2 text-danger"></i>Acciones Rápidas</h2>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="quick-action-card">
+                <div class="quick-action-icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <h5 class="mb-3">Nueva Venta</h5>
+                <p class="text-muted mb-3">Procesa una nueva venta de entradas de manera rápida y sencilla.</p>
+                <a href="@Url.Action("CrearVenta", "Venta")" class="btn btn-cinema-primary w-100">
+                    <i class="fas fa-arrow-right me-1"></i> Ir a Ventas
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="quick-action-card">
+                <div class="quick-action-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h5 class="mb-3">Gestionar Películas</h5>
+                <p class="text-muted mb-3">Añade, edita o elimina películas del catálogo del cine.</p>
+                <a href="@Url.Action("Lista", "Pelicula")" class="btn btn-cinema-secondary w-100">
+                    <i class="fas fa-arrow-right me-1"></i> Ver Películas
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="quick-action-card">
+                <div class="quick-action-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <h5 class="mb-3">Programar Funciones</h5>
+                <p class="text-muted mb-3">Crea y gestiona los horarios de las funciones.</p>
+                <a href="@Url.Action("Lista", "Funcion")" class="btn btn-cinema-secondary w-100">
+                    <i class="fas fa-arrow-right me-1"></i> Ver Funciones
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="quick-action-card">
+                <div class="quick-action-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h5 class="mb-3">Gestionar Clientes</h5>
+                <p class="text-muted mb-3">Administra la base de datos de clientes del cine.</p>
+                <a href="@Url.Action("Lista", "Cliente")" class="btn btn-cinema-secondary w-100">
+                    <i class="fas fa-arrow-right me-1"></i> Ver Clientes
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Movies in Theater -->
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-star me-2 text-warning"></i>Películas en Cartelera</h2>
+        <a href="@Url.Action("Lista", "Pelicula")" class="btn btn-cinema-primary">
+            Ver Todas <i class="fas fa-arrow-right ms-1"></i>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0">Aventuras Espaciales</h6>
+                        <span class="movie-rating">4.8</span>
+                    </div>
+                    <p class="text-muted small mb-2">Ciencia Ficción • 2h 15m</p>
+                    <p class="small mb-3">Una épica aventura en el espacio que llevará a los espectadores...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">3 funciones hoy</small>
+                        <a href="#" class="btn btn-sm btn-cinema-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0">El Misterio del Bosque</h6>
+                        <span class="movie-rating">4.5</span>
+                    </div>
+                    <p class="text-muted small mb-2">Thriller • 1h 55m</p>
+                    <p class="small mb-3">Un thriller psicológico que mantendrá al público en vilo...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">2 funciones hoy</small>
+                        <a href="#" class="btn btn-sm btn-cinema-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0">Amor en París</h6>
+                        <span class="movie-rating">4.2</span>
+                    </div>
+                    <p class="text-muted small mb-2">Romance • 2h 05m</p>
+                    <p class="small mb-3">Una hermosa historia de amor ambientada en la ciudad luz...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">4 funciones hoy</small>
+                        <a href="#" class="btn btn-sm btn-cinema-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="movie-card">
+                <div class="movie-poster">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="mb-0">El Último Héroe</h6>
+                        <span class="movie-rating">4.7</span>
+                    </div>
+                    <p class="text-muted small mb-2">Acción • 2h 30m</p>
+                    <p class="small mb-3">Acción trepidante con efectos especiales espectaculares...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">5 funciones hoy</small>
+                        <a href="#" class="btn btn-sm btn-cinema-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Activity -->
+<section class="row">
+    <div class="col-lg-8 mb-4">
+        <div class="cinema-card p-4">
+            <h4 class="mb-4"><i class="fas fa-clock me-2 text-info"></i>Actividad Reciente</h4>
+            <div class="activity-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-1">Nueva venta procesada</h6>
+                        <p class="mb-1 text-muted">Venta #1234 - Cliente: Juan Pérez - 2 entradas para "Aventuras Espaciales"</p>
+                        <span class="activity-time">Hace 5 minutos</span>
+                    </div>
+                    <span class="badge bg-success">Completada</span>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-1">Nueva película agregada</h6>
+                        <p class="mb-1 text-muted">Se agregó "El Gran Misterio" al catálogo</p>
+                        <span class="activity-time">Hace 1 hora</span>
+                    </div>
+                    <span class="badge bg-info">Nueva</span>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-1">Función programada</h6>
+                        <p class="mb-1 text-muted">Nueva función de "Amor en París" para mañana 20:30 - Sala 3</p>
+                        <span class="activity-time">Hace 2 horas</span>
+                    </div>
+                    <span class="badge bg-warning">Programada</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-4">
+        <div class="cinema-card p-4">
+            <h4 class="mb-4"><i class="fas fa-chart-line me-2 text-success"></i>Resumen del Día</h4>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Ventas de Hoy</span>
+                    <strong class="text-success">$2,450</strong>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" style="width: 75%"></div>
+                </div>
+                <small class="text-muted">75% del objetivo diario</small>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Ocupación</span>
+                    <strong class="text-info">68%</strong>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-info" style="width: 68%"></div>
+                </div>
+                <small class="text-muted">142 de 210 asientos</small>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Satisfacción</span>
+                    <strong class="text-warning">4.6/5</strong>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" style="width: 92%"></div>
+                </div>
+                <small class="text-muted">Basado en 45 reseñas</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Add animation to stats cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const statCards = document.querySelectorAll('.cinema-stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+
+            // Animate numbers
+            const numbers = document.querySelectorAll('.cinema-stat-number');
+            numbers.forEach(number => {
+                const target = parseInt(number.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    number.textContent = Math.floor(current);
+                }, 30);
+            });
+        });
+    </script>
+}
