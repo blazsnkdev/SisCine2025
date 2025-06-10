@@ -1,84 +1,701 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SistemaCineMVC</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SistemaCineMVC.styles.css" asp-append-version="true" />
 
-
-
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Toastify -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
-
+    <!-- jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <style>
+        :root {
+            --cinema-red: #dc2626;
+            --cinema-red-dark: #991b1b;
+            --cinema-gold: #f59e0b;
+            --cinema-dark: #1f2937;
+            --cinema-light: #f8fafc;
+            --cinema-gray: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cinema-light);
+            color: var(--cinema-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .cinema-header {
+            background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .cinema-navbar {
+            padding: 1rem 0;
+        }
+
+        .cinema-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white !important;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .cinema-brand:hover {
+                color: var(--cinema-gold) !important;
+                transform: scale(1.05);
+                transition: all 0.3s ease;
+            }
+
+        .cinema-nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .cinema-nav-link:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: white !important;
+                transform: translateY(-2px);
+            }
+
+            .cinema-nav-link.active {
+                background-color: var(--cinema-gold);
+                color: var(--cinema-dark) !important;
+            }
+
+        /* Dropdown Styles */
+        .cinema-dropdown {
+            background-color: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 0.5rem 0;
+        }
+
+        .cinema-dropdown-item {
+            padding: 0.75rem 1.5rem;
+            color: var(--cinema-dark);
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+        }
+
+            .cinema-dropdown-item:hover {
+                background-color: var(--cinema-red);
+                color: white;
+            }
+
+        /* Breadcrumbs */
+        .cinema-breadcrumb {
+            background: none;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .cinema-breadcrumb-item {
+            color: var(--cinema-gray);
+            font-size: 0.9rem;
+        }
+
+            .cinema-breadcrumb-item.active {
+                color: var(--cinema-red);
+                font-weight: 600;
+            }
+
+            .cinema-breadcrumb-item a {
+                color: var(--cinema-gray);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .cinema-breadcrumb-item a:hover {
+                    color: var(--cinema-red);
+                }
+
+        /* Main Content */
+        .cinema-main {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+        }
+
+        /* Cards */
+        .cinema-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: none;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+            .cinema-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            }
+
+        /* Buttons */
+        .btn-cinema-primary {
+            background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-cinema-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+                color: white;
+            }
+
+        .btn-cinema-secondary {
+            background: transparent;
+            border: 2px solid var(--cinema-red);
+            color: var(--cinema-red);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-cinema-secondary:hover {
+                background: var(--cinema-red);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+        /* Footer */
+        .cinema-footer {
+            background: var(--cinema-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+            .cinema-footer h5 {
+                color: var(--cinema-gold);
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+            .cinema-footer a {
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .cinema-footer a:hover {
+                    color: var(--cinema-gold);
+                }
+
+        /* Hero Section for Home */
+        .cinema-hero {
+            background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .cinema-hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cinema" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23cinema)"/></svg>');
+                opacity: 0.3;
+            }
+
+        .cinema-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Stats Cards */
+        .cinema-stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+            .cinema-stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            }
+
+        .cinema-stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--cinema-red) 0%, var(--cinema-red-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .cinema-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cinema-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .cinema-stat-label {
+            color: var(--cinema-gray);
+            font-weight: 500;
+        }
+
+
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+            .theme-toggle:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+
+
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SistemaCineMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <!-- Header -->
+    <header class="cinema-header">
+        <nav class="navbar navbar-expand-lg cinema-navbar">
+            <div class="container">
+                <a class="cinema-brand" href="@Url.Action("Index", "Home")">
+                    <i class="fas fa-film"></i>
+                    SistemaCineMVC
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        style="border: none; background: rgba(255,255,255,0.1);">
+                    <i class="fas fa-bars text-white"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link cinema-nav-link" href="@Url.Action("Index", "Home")">
+                                <i class="fas fa-home me-1"></i> Inicio
+                            </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Lista">Clientes</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle cinema-nav-link" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-film me-1"></i> Catálogo
+                            </a>
+                            <ul class="dropdown-menu cinema-dropdown">
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Lista", "Pelicula")">
+                                        <i class="fas fa-video me-2"></i> Películas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Lista", "Sala")">
+                                        <i class="fas fa-door-open me-2"></i> Salas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Lista", "Funcion")">
+                                        <i class="fas fa-calendar-alt me-2"></i> Funciones
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Lista", "Asiento")">
+                                        <i class="fas fa-chair me-2"></i> Asientos
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pelicula" asp-action="Lista">Peliculas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Sala" asp-action="Lista">Salas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Funcion" asp-action="Lista">Funciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Asiento" asp-action="Lista">Asientos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Entrada" asp-action="Index">Entradas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Venta" asp-action="CrearVenta">Crear venta</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle cinema-nav-link" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-shopping-cart me-1"></i> Ventas
+                            </a>
+                            <ul class="dropdown-menu cinema-dropdown">
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("CrearVenta", "Venta")">
+                                        <i class="fas fa-plus-circle me-2"></i> Nueva Venta
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Index", "Entrada")">
+                                        <i class="fas fa-ticket-alt me-2"></i> Entradas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item cinema-dropdown-item" href="@Url.Action("Lista", "Cliente")">
+                                        <i class="fas fa-users me-2"></i> Clientes
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
+
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn theme-toggle" onclick="toggleTheme()" title="Cambiar tema">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
+                        <a href="@Url.Action("CrearVenta", "Venta")" class="btn btn-cinema-primary">
+                            <i class="fas fa-ticket-alt me-1"></i> Nueva Venta
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Breadcrumbs -->
     <div class="container">
-        <main role="main" class="pb-3">
-            <breadcrumb></breadcrumb>@*Agregar aqui*@
+        <nav aria-label="breadcrumb" class="cinema-breadcrumb">
+            <ol class="breadcrumb" id="breadcrumb-nav">
+                <!-- Breadcrumbs will be generated by JavaScript -->
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main class="cinema-main fade-in">
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "Home")
+            {
+                <!-- Hero Section for Home Page -->
+                <section class="cinema-hero">
+                    <div class="cinema-hero-content">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <h1 class="display-4 fw-bold mb-4">Sistema de Gestión de Cine</h1>
+                                <p class="lead mb-4">Administra películas, salas, funciones, ventas y más desde un solo lugar</p>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <a href="@Url.Action("CrearVenta", "Venta")" class="btn btn-light btn-lg">
+                                        <i class="fas fa-ticket-alt me-2"></i> Nueva Venta
+                                    </a>
+                                    <a href="@Url.Action("Lista", "Funcion")" class="btn btn-outline-light btn-lg">
+                                        <i class="fas fa-calendar-alt me-2"></i> Ver Funciones
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 text-center">
+                                <i class="fas fa-film" style="font-size: 8rem; opacity: 0.3;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Stats -->
+                <section class="row mb-5">
+                    <div class="col-md-3 mb-4">
+                        <div class="cinema-stat-card">
+                            <div class="cinema-stat-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div class="cinema-stat-number">24</div>
+                            <div class="cinema-stat-label">Películas</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="cinema-stat-card">
+                            <div class="cinema-stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="cinema-stat-number">12</div>
+                            <div class="cinema-stat-label">Funciones Hoy</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="cinema-stat-card">
+                            <div class="cinema-stat-icon">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <div class="cinema-stat-number">3</div>
+                            <div class="cinema-stat-label">Entradas Vendidas</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="cinema-stat-card">
+                            <div class="cinema-stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="cinema-stat-number">573</div>
+                            <div class="cinema-stat-label">Clientes</div>
+                        </div>
+                    </div>
+                </section>
+            }
 
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer -->
+    <footer class="cinema-footer">
         <div class="container">
-            &copy; 2025 - SistemaCineMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-film me-2"></i>SistemaCineMVC</h5>
+                    <p class="mb-3">Sistema completo de gestión para cines. Administra tu negocio de manera eficiente y moderna.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Catálogo</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="@Url.Action("Lista", "Pelicula")">Películas</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Lista", "Sala")">Salas</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Lista", "Funcion")">Funciones</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Lista", "Asiento")">Asientos</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Ventas</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="@Url.Action("CrearVenta", "Venta")">Nueva Venta</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Index", "Entrada")">Entradas</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Lista", "Cliente")">Clientes</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="@Url.Action("Index", "Home")">Inicio</a></li>
+                        <li class="mb-2"><a href="@Url.Action("Privacy", "Home")">Privacidad</a></li>
+                        <li class="mb-2"><a href="#">Soporte</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+1 234 567 890</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i>info@cinema.com</li>
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>123 Cinema St.</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; @DateTime.Now.Year - SistemaCineMVC - Todos los derechos reservados</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="@Url.Action("Privacy", "Home")" class="me-3">Política de Privacidad</a>
+                    <a href="#">Términos de Uso</a>
+                </div>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        // Breadcrumb generation
+        function generateBreadcrumbs() {
+            const path = window.location.pathname;
+            const segments = path.split('/').filter(segment => segment !== '');
+            const breadcrumbNav = document.getElementById('breadcrumb-nav');
+
+            if (segments.length === 0 || (segments.length === 1 && segments[0] === 'Home')) {
+                breadcrumbNav.style.display = 'none';
+                return;
+            }
+
+            const nameMap = {
+                'Home': 'Inicio',
+                'Cliente': 'Clientes',
+                'Pelicula': 'Películas',
+                'Sala': 'Salas',
+                'Funcion': 'Funciones',
+                'Asiento': 'Asientos',
+                'Entrada': 'Entradas',
+                'Venta': 'Ventas',
+                'Lista': 'Lista',
+                'CrearVenta': 'Crear Venta',
+                'Index': 'Índice',
+                'Privacy': 'Privacidad'
+            };
+
+            let breadcrumbHTML = '<li class="breadcrumb-item cinema-breadcrumb-item"><a href="/"><i class="fas fa-home me-1"></i>Inicio</a></li>';
+
+            for (let i = 0; i < segments.length; i++) {
+                const segment = segments[i];
+                const displayName = nameMap[segment] || segment;
+                const isLast = i === segments.length - 1;
+                const href = '/' + segments.slice(0, i + 1).join('/');
+
+                if (isLast) {
+                    breadcrumbHTML += `<li class="breadcrumb-item cinema-breadcrumb-item active" aria-current="page">${displayName}</li>`;
+                } else {
+                    breadcrumbHTML += `<li class="breadcrumb-item cinema-breadcrumb-item"><a href="${href}">${displayName}</a></li>`;
+                }
+            }
+
+            breadcrumbNav.innerHTML = breadcrumbHTML;
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeIcon.className = 'fas fa-sun';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Add active class to current nav item
+        function setActiveNavItem() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.cinema-nav-link');
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && currentPath.includes(href) && href !== '/') {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            generateBreadcrumbs();
+            loadTheme();
+            initSmoothScrolling();
+            setActiveNavItem();
+
+            // Add fade-in animation to cards
+            const cards = document.querySelectorAll('.cinema-card, .cinema-stat-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
+
+        // Add dark theme styles
+        const darkThemeStyles = `
+            .dark-theme {
+                background-color: #1a1a1a !important;
+                color: #e5e5e5 !important;
+            }
+            .dark-theme .cinema-card,
+            .dark-theme .cinema-stat-card {
+                background-color: #2d2d2d !important;
+                color: #e5e5e5 !important;
+            }
+            .dark-theme .cinema-dropdown {
+                background-color: #2d2d2d !important;
+            }
+            .dark-theme .cinema-dropdown-item {
+                color: #e5e5e5 !important;
+            }
+        `;
+
+        // Inject dark theme styles
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = darkThemeStyles;
+        document.head.appendChild(styleSheet);
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
