@@ -39,7 +39,7 @@
 </div>
 <div>
 
-    <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@Model.IdCliente" class="btn btn-primary">Actualizar</a> |
+    <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@Model.IdCliente" class="btn btn-warning">Actualizar</a> |
     <form asp-action="Eliminar" asp-route-id="@Model.IdCliente" method="post" style="display:inline;">
         <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar este cliente?');" class="btn btn-danger">Eliminar</button>
     </form> |

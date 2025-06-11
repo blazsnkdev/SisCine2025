@@ -9,7 +9,7 @@
 
 
 <div class="d-flex gap-3 align-items-center">
-    <a href="cliente/formulario" class="btn btn-primary">Agregar</a>
+    <a href="cliente/formulario" class="btn btn-dark">Agregar</a>
 
     <div class="mb-0">
         @* <label>Filtrar Por Título:</label> *@
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                    <a asp-action="Detalle" asp-route-id="@item.IdCliente" class="btn btn-primary">Detalle</a>
+                    <a asp-action="Detalle" asp-route-id="@item.IdCliente" class="btn btn-outline-dark">Detalle</a>
 
                
             </td>

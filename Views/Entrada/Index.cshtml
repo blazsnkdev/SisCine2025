@@ -7,20 +7,20 @@
 <h1 class="text-center">@ViewData["Titulo"]</h1>
 
 <div class="d-flex align-items-center gap-2">
-    <a href="entrada/formulario" class="btn btn-primary">Agregar</a>
-    <a asp-controller="Entrada" asp-action="Index" class="btn btn-outline-success">Ver Todos</a>
+    <a href="entrada/formulario" class="btn btn-dark">Agregar</a>
+    <a asp-controller="Entrada" asp-action="Index" class="btn btn-outline-dark">Ver Todos</a>
     <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
         <select name="idFuncion" class="form-control" asp-items="ViewBag.IdFuncion">
             <option value="">-- Seleccionar Función --</option>
         </select>
-        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+        <button type="submit" class="btn btn-outline-warning">Filtrar</button>
     </form>
 
     <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
         <select name="idAsiento" class="form-control" asp-items="ViewBag.IdAsiento">
             <option value="">-- Seleccionar Asiento --</option>
         </select>
-        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+        <button type="submit" class="btn btn-outline-warning">Filtrar</button>
     </form>
 
     <form asp-controller="Entrada" asp-action="Index" method="get" class="d-flex align-items-center gap-2 mb-0">
@@ -31,7 +31,7 @@
             <option value="Cancelada"> Cancelado </option>
 
         </select>
-        <button type="submit" class="btn btn-outline-info">Filtrar</button>
+        <button type="submit" class="btn btn-outline-warning">Filtrar</button>
     </form>
 
 
@@ -67,10 +67,10 @@
                 @Html.DisplayFor(modelItem => item.IdEntrada)
             </td>
             <td>
-                <a asp-action="DetalleFuncion" asp-route-id="@item.IdFuncion" class="btn btn-outline-success">Ver</a>
+                <a asp-action="DetalleFuncion" asp-route-id="@item.IdFuncion" class="btn btn-outline-dark">Ver</a>
             </td>
             <td>
-                    <a asp-action="DetalleAsiento" asp-route-id="@item.IdAsiento" class="btn btn-outline-success">Ver</a>
+                    <a asp-action="DetalleAsiento" asp-route-id="@item.IdAsiento" class="btn btn-outline-dark">Ver</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Precio)
@@ -80,7 +80,7 @@
             </td>
                 <td class="d-flex align-items-center gap-2">
                     
-                <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-success" asp-route-id="@item.IdEntrada">Detalle</a> |
+                <a asp-controller="Entrada" asp-action="DetalleEntrada" class="btn btn-dark" asp-route-id="@item.IdEntrada">Detalle</a> |
                 
                     @* <form asp-controller="Entrada" asp-action="MarcarVendido" asp-route-id="@item.IdEntrada" method="post"> *@
                     @*     @Html.AntiForgeryToken() *@
@@ -88,7 +88,7 @@
                     @* </form> | *@
                     <form asp-controller="Entrada" asp-action="MarcarCancelada" asp-route-id="@item.IdEntrada" method="post">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-outline-primary">Cancelar</button>
+                        <button type="submit" class="btn btn-outline-danger">Cancelar</button>
                     </form>
                 
                 

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Detalle de Venta"; @* More descriptive title *@
 }
 
-<div class="card mt-3">
+<div class="card">
     <div class="card-body">
         <h5 class="card-title"><strong>ID Venta: @Model.IdVenta</strong></h5>
         <p class="card-text">Fecha de Venta: @Model.FechaVenta?.ToShortDateString() @Model.FechaVenta?.ToShortTimeString()</p> @* Display date and time nicely *@
@@ -19,7 +19,7 @@
         <p class="card-text">Teléfono: @Model.IdClienteNavigation?.Telefono</p>
         <hr />
 
-        <h4 class="card-title">Detalles de las Entradas Vendidas</h4>
+        <h4 class="card-title">Entradas Vendidas</h4>
         @* Iterate over the DetalleVenta collection of the Ventum model *@
         @if (Model.DetalleVenta != null && Model.DetalleVenta.Any())
         {
@@ -59,7 +59,7 @@
                 <input type="submit" value="Eliminar Venta" class="btn btn-danger" /> |
             </form> *@
 
-            <a asp-action="Index" class="btn btn-secondary">Regresar a Lista de Ventas</a>
+            <a asp-action="Index" class="btn btn-secondary">Realizar Venta</a>
         </div>
     </div>
 </div>

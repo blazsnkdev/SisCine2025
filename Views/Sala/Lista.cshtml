@@ -4,7 +4,7 @@
 <h1 class="text-center">@ViewData["Titulo"]</h1>
 
 <div class="d-flex gap-3 align-items-center">
-    <a href="sala/formulario" class="btn btn-primary">Agregar</a>
+    <a href="sala/formulario" class="btn btn-dark">Agregar</a>
 
 </div>
 
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Capacidad)
             </td>
             <td>
-               <a asp-controller="Sala" asp-action="Editar" asp-route-id="@item.IdSala" class="btn btn-primary">Actualizar</a> |
+               <a asp-controller="Sala" asp-action="Editar" asp-route-id="@item.IdSala" class="btn btn-warning">Actualizar</a> |
                     <a asp-controller="Sala" asp-action="Eliminar" asp-route-id="@item.IdSala" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>

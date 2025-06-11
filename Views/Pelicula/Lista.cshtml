@@ -3,7 +3,7 @@
 <h1 class="text-center">@ViewData["Titulo"]</h1>
 
 <div class="d-flex gap-3 align-items-center">
-    <a href="pelicula/formulario" class="btn btn-primary">Agregar</a>
+    <a href="pelicula/formulario" class="btn btn-dark">Agregar</a>
 
     <div class="mb-0">
         @* <label>Filtrar Por Título:</label> *@
@@ -64,7 +64,7 @@
                 @Html.DisplayFor(modelItem => item.Sinopsis)
             </td>
             <td>
-                    <button class="btn btn-warning"
+                    <button class="btn btn-outline-dark"
                             data-bs-toggle="modal"
                             data-bs-target="#modalDetalle"
                             data-titulo="@item.Titulo"
@@ -74,7 +74,7 @@
                             data-sinopsis="@item.Sinopsis">
                         Ver
                     </button> |
-                    <a asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.IdPelicula" class="btn btn-primary">Actualizar</a> |
+                    <a asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.IdPelicula" class="btn btn-warning">Actualizar</a> |
                     <a asp-controller="Pelicula" asp-action="Confirmacion" asp-route-id="@item.IdPelicula" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
